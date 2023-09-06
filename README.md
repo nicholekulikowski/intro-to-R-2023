@@ -7,6 +7,8 @@ This repository contains all code, handouts, and other materials for the "Introd
 - Nichole Kulikowski
 - Louis Reynolds
 
+## Other Support Staff
+
 ## Workshop Preparation
 Before Day 1, be sure to have both R (the language) and RStudio (the IDE) installed on your EPA computer. See link for instructions.
 
@@ -14,20 +16,20 @@ Before Day 1, be sure to have both R (the language) and RStudio (the IDE) instal
 ### Day 1
 Session 1 (10/18): Welcome to R and RStudio
 
-_**Lead:**_
+_**Lead:**_ Nichole Kulikowski
 
 Session 2 (10/18): Getting and Cleaning Data
 
-_**Lead:**_
+_**Lead:**_ Louis Reynolds
 
 ### Day 2
 Session 3 (10/19): Summarizing and Exporting Data
 
-_**Lead:**_
+_**Lead:**_ Karen Blocksom
 
 Session 4 (10/19): Vizualizing Data
 
-_**Lead:**_
+_**Lead:**_ Nichole Kulikowski
 
 ## Additional Resources
 Any links to fact sheets and other sites can go here
