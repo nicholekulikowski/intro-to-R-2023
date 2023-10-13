@@ -1,0 +1,339 @@
+---
+title: "Module 3 - Summarizing and Exporting Data"
+author: "Karen Blocksom - EPA ORD  CPHEA - Corvallis"
+format: html
+editor: visual
+---
+
+## Setup
+
+A number of packages are collected under the library "tidyverse". These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.
+
+It is also possible to do anything you might want to do in R using base R language - these are the functions that come packaged with the R installation itself.
+
+I will follow on the Getting and Cleaning module using the same datasets.
+
+```{r setup, echo=TRUE}
+
+# It is good practice to load all libraries in a chunk at the beginning of your workflow (code).
+library(plyr)
+library("tidyverse")
+library("readxl")
+library(writexl)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::arrange)
+conflicts_prefer(dplyr::summarize)
+conflicts_prefer(dplyr::summarise)
+conflicts_prefer(dplyr::mutate)
+```
+
+```{r data, echo=TRUE}
+
+# Read in Raw data  
+# readxl is a package that reads in data from an excel file. 
+
+# Show the names of the sheets in a workbook 
+excel_sheets("Data.xlsx") 
+
+cts <- read_excel("Data.xlsx","Fish") 
+# Let's look at the names of variables in this file - note that most are in uppercase and a few in lowercase
+# For consistency and ease of working with data, we want to set those lowercase to uppercase. We will keep EventID in mixed case.
+names(cts)
+
+names(cts)[names(cts)!='EventID'] <- toupper(names(cts)[names(cts)!='EventID'])
+
+names(cts)
+
+# An alternative approach is with rename_with function
+cts <- cts %>% 
+rename_with(toupper, .cols = 2:ncol(cts))
+
+sites <- read_excel("Data.xlsx","Sites")  
+
+# Using the .name_repair argument ensures that any names with spaces or symbols are "fixed" by replacing with '.'
+traits <- read_excel("Data.xlsx", "TraitsTable", .name_repair = "universal")  
+
+```
+
+## Wrangling - pivots, joins, mutate and summarize {.scrollable}
+
+-   **pivot_longer**
+
+-   **pivot_wider**
+
+-   **joins -** join one tibble to another
+
+-   **mutate** - make new columns
+
+-   **summarize/summarise**
+
+### Pivoting data
+
+Pivoting data has evolved over the years in the R Studio tidyverse.
+
+The functions *melt* and *cast (dcast) in the reshape2 package* led to the functions *gather* and *spread,* which had similar purpose with different approach. So if you see these terms thrown around, they are earlier incarnations of the pivot functions. You may still find *gather*, *spread*, *melt,* and *dcast* in code others have written - and they will both work, they just aren't supported any longer.
+
+Data or tibbles come in two forms - *long* and *wide*
+
+All of the tibbles currently in our R environment are in wide format.
+
+```{r pivot, echo=TRUE}
+# Pivot traits and fish data into long format
+# Note how single and double quotes can be used in R - no difference
+traits_long <- traits %>%
+  pivot_longer(cols = 2:39, names_to ='trait',values_to ='traitvalue') %>% 
+  arrange(SpeciesCode, trait)
+
+#you can choose to tell pivot what not to include instead of what to include
+cts_long <- cts %>% 
+  pivot_longer(cols = ALCH:THRH, names_to="SpeciesCode", values_to="count") %>%
+  arrange(EventID, SpeciesCode)
+```
+
+### Handling NAs {.scrollable}
+
+-   Missing values in R are represented by NA
+
+-   It's a good idea to look at your data and get comfortable with NAs and how to omit, replace, or just leave them be (usually the best option).
+
+-   You can replace NAs with values but these replacements must be consistent with the data format of the column.
+
+```{r NAs, echo=TRUE}
+# Check for missing values
+sum(is.na(cts_long)) # count number of NA
+sum(is.na(traits_long))
+
+# Next we delete cases where there are 0 fish of a given species 
+cts_long2 <- cts_long %>% 
+  filter(count>0) %>% 
+  arrange(EventID)
+
+# If we take this long data frame and pivot wide again, there will be NAs where we removed 0 values
+cts_wide2 <- cts_long2 %>%
+  pivot_wider(id_cols = EventID, names_from='SpeciesCode', values_from='count') 
+
+head(cts_wide2)
+# If we now fill in missing values with 0, we can see them in the wide data frame again
+cts_wide2[is.na(cts_wide2)] <- 0
+
+head(cts_wide2)
+```
+
+### Joins {.scrollable}
+
+-   Anyone working in databases such as Access or SQL will know about joins. Joins are largely a tidyverse version of the base R *merge* function. Joins are very powerful tools to get data in a form that you want.
+
+-   It is important to understand what you are trying to achieve by merging or joining datasets in order to obtain what you want and understand what you get.
+
+-   Some examples of joining functions in both base R and dplyr join functions:
+
+    -   **inner_join(x, y)** - all variables from both datasets and only those rows with matching key variables (equivalent to **merge(x, y)**)
+
+    -   **semi_join(x, y)** - only retains variables in *x* and only rows that match key variables in *y*
+
+    -   **left_join(x, y)** - retains all variables in both x and y matched by key variables and all rows in x (equivalent to **merge(x, y, all.x=TRUE)**)
+
+    -   **outer_join(x, y)** - retains all variables in both x and y and all rows in both x and y (equivalent to **merge(x, y, all=TRUE)**)
+
+    -   **anti_join(x, y)** - retains all variables in x and only those rows that do NOT match up to y by key variables
+
+We will walk through a couple examples relevant to our datasets.
+
+```{r joins, echo=TRUE}
+
+# anti_joins are handy to check for inconsistncies between two columns that you plan to use as a join key.
+# Most times when I do this I will find more than one misspelling or inconsistency.
+
+# Check for inconsistencies between species codes/spellings - usually you would do this with the left_hand side of the eventual join listed first.  
+nomatch_cnts <- anti_join(cts_long2, traits_long, by = 'SpeciesCode') 
+
+# For example, it is ok and expected that the traits have more species than are listed in the counts. 
+nomatch_spp <- anti_join(traits_long, cts_long2,  by="SpeciesCode") %>% 
+  select(SpeciesCode) %>% 
+  distinct() # equivalent to unique() in base R
+
+# Now we might want to merge the long counts data and the long species trait data
+# We will start by subsetting the traits data to only keep a small number of traits # that can be used to calculate fish metrics
+traits_long_sub <- filter(traits_long, trait %in% c('Benthic', 'ModTol', 'Cottid', 'Cyprinid', 'Tol.Benthic'))
+
+cts_traits <- inner_join(cts_long2, traits_long_sub, by = 'SpeciesCode') # Warning because this function is only intended for one-to-one matches between x and y
+
+# Using the multiple argument avoids this warning message if we expect there to be more than one match between x and y
+cts_traits <- inner_join(cts_long2, traits_long_sub, by = 'SpeciesCode', multiple = 'all') 
+
+# Using merge from base R provides the same result
+cts_traits_alt <- merge(cts_long2, traits_long_sub, by = 'SpeciesCode')
+```
+
+### Mutate and Summarize {.scrollable}
+
+-   To change a column, you *mutate* that column. You can either mutate the existing column or you can make a new column with the saved data.
+
+-   To *summarize* (or *summarise* - both work) - you are usually making the dataframe smaller - reporting the raw data by summary statistics
+
+-   The function *group_by* may be used to summarize data, but note that the *summarize* function only expects one grouping variable. To avoid any confusion and any associated warning messages, use the *.groups='keep'* argument in the *summarize* function.
+
+-   There are always many ways to perform the same task. Included below the code for **met_1** is an alternate way to get the same result using functions from the *plyr* package.
+
+```{r ddply, echo=TRUE, warning=FALSE}
+
+# Now having fixed that - we can go ahead and run that left_join
+match_1 <- left_join(cts_long2, traits_long_sub, by = 'SpeciesCode')
+
+# The length of match_1 should equal the length of the cts_long2 file * the number of traits
+5*5571
+#use mutate() to create Count.trait which is the count times the indicator variable for each trait
+match_1 <- match_1 %>% 
+  mutate(ct_trait = count*traitvalue)
+
+# Get rid of those combinations that are 0.  
+match_2 <- match_1 %>% 
+  filter(ct_trait>0)
+
+# summarize
+# Note the use of group_by in this next bit of code.
+
+# Count the number of species per trait and the number of individuals by trait
+# This results in a table of traits instead of species
+# Notice the ungroup() statement.  This removes the grouping that you applied to the table met_1. This is a good practice, especially if you decide to later do other operations on this table.  
+
+met_1 <- match_2 %>%
+  group_by(EventID, trait) %>% 
+  summarize(richness = length(ct_trait), 
+            sum = sum(ct_trait), .groups = 'keep') %>%
+  ungroup()
+
+# This is equivalent to the following:
+met_1_alt <- match_2 %>%
+  ddply(c('EventID', 'trait'), plyr::summarize, 
+        richness = length(ct_trait),
+        sum = sum(ct_trait))
+
+# Calculate the total number of individuals per sample
+cts_tot <- cts_long %>%
+  group_by(EventID) %>% 
+  summarise(total=sum(count)) %>%
+  ungroup()
+
+
+# Merge these totals with met.1 and then calculate proportions by trait 
+# and EventID. 
+met_2 <- left_join(met_1, cts_tot, by="EventID")
+
+met_2 <- met_2 %>% 
+  mutate(prop = sum/total)
+
+# Pivot longer so that we can rename metrics using traits as prefixes
+met_2_long <- met_2 %>%
+  pivot_longer(cols = c(richness:sum, prop)) %>%
+  mutate(metric = paste(trait, name, sep = '_')) 
+
+names(met_2_long)
+
+unique(met_2_long$metric)
+
+```
+
+## Prepare data for output {.scrollable}
+
+### Pivot data wider {.scrollable}
+
+-   To store data in databases, the long format is more appropriate, but to share with someone not familiar with long format, we may want to put that data back into wide format.
+
+-   When we do that, we end up with missing values where no fish with a particular trait was present for that *EventID*. We can fix that by filling in missing values with 0.
+
+-   We show this in two separate steps but can perform all at once using pipelining (**%\>%)**
+
+```{r prep-output, echo=TRUE}
+
+# Pivot wider so that metrics are in columns - this produces NAs because 
+# some metrics have no individuals, so they were not in the long data
+# frame for some EventIDs. 
+met_2_wide <- pivot_wider(met_2_long, id_cols = c('EventID', 'total'),
+                          names_from='metric', values_from='value') 
+
+# Fill in NAs with 0
+# Note that we could have done this all at once using the pipeline above
+# It is just shown separately here to show the missing values before filling 
+# them in.
+met_2_wide <- met_2_wide %>%
+  replace(is.na(.), 0)
+
+names(met_2_wide)
+```
+
+### Export data to a file {.scrollable}
+
+-   R can export to a variety of formats. Some of the most common types are comma-delimited (.csv) and Excel.
+
+-   We will cover examples of these two types.
+
+-   A longer format is tidier to work with, so we will first pivot the dataset longer
+
+```{r melt-output, echo=TRUE}
+names(met_2_wide)
+
+met_out <- pivot_longer(met_2_wide, cols = total:Cottid_prop, 
+                        names_to = 'Metric', values_to = 'Value')
+
+
+```
+
+#### Now we can save that data frame to a .csv - this is the simplest way to save.
+
+```{r save-csv, echo=TRUE}
+write.csv(met_out, "Fish_Metrics.csv")
+
+# If we look at this file, we see an extra column with no heading. That column 
+# represents the row names and can create some issues, so we want to exclude 
+# those. 
+
+# If we read that file back in, R names that column X
+fish_mets <- read.csv("Fish_Metrics.csv")
+head(fish_mets)
+
+write.csv(met_out, "Fish_Metrics_noRowNames.csv", row.names=F)
+# Now we read this file back in and note that it is a bit cleaner without that 
+# X column
+fish_mets_noRowNames <- read.csv("Fish_Metrics_noRowNames.csv")
+head(fish_mets_noRowNames)
+```
+
+#### Now let's try saving as a worksheet in an Excel file.
+
+-   We can save multiple data frames into the same Excel file as worksheets.
+
+-   Below is just one approach using the *writexl* package.
+
+-   Look at both files to see the differences between the two.
+
+```{r save-excel, echo=TRUE}
+write_xlsx(list(Metrics = met_out, Metrics_wide = met_2_wide), 
+           "Fish_Metrics.xlsx")
+
+# To save just one data frame into an Excel file with the worksheet named Sheet1
+write_xlsx(met_out, "Fish_Metrics_OneWorksheet.xlsx")
+
+
+```
+
+### In this module:
+
+-   Reviewed importing data
+
+-   Pivoting data into wider or longer format
+
+-   Handling missing values (NAs)
+
+-   Joining data frames
+
+-   Adding or changing variables
+
+-   Summarizing data
+
+-   Exporting data to files
+
+### 
+
+## BREAK
