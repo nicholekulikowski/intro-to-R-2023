@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Karen Blocksom - EPA ORD CPHEA - Corvallis">
+
+<title>Module 3 - Summarizing and Exporting Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="summarizing_and_exporting_files/libs/clipboard/clipboard.min.js"></script>
+<script src="summarizing_and_exporting_files/libs/quarto-html/quarto.js"></script>
+<script src="summarizing_and_exporting_files/libs/quarto-html/popper.min.js"></script>
+<script src="summarizing_and_exporting_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="summarizing_and_exporting_files/libs/quarto-html/anchor.min.js"></script>
+<link href="summarizing_and_exporting_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="summarizing_and_exporting_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="summarizing_and_exporting_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="summarizing_and_exporting_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="summarizing_and_exporting_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Module 3 - Summarizing and Exporting Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Karen Blocksom - EPA ORD CPHEA - Corvallis </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">1. Setup</h2>
+<p>A number of packages are collected under the library “tidyverse”. These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.</p>
+<p>It is also possible to do anything you might want to do in R using base R language - these are the functions that come packaged with the R installation itself.</p>
+<p>I will follow on the Getting and Cleaning module using the same datasets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is good practice to load all libraries in a chunk at the beginning of your workflow (code).</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'plyr' was built under R version 4.2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.0     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.1     ✔ tibble    3.1.8
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::arrange()   masks plyr::arrange()
+✖ purrr::compact()   masks plyr::compact()
+✖ dplyr::count()     masks plyr::count()
+✖ dplyr::desc()      masks plyr::desc()
+✖ dplyr::failwith()  masks plyr::failwith()
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::id()        masks plyr::id()
+✖ dplyr::lag()       masks stats::lag()
+✖ dplyr::mutate()    masks plyr::mutate()
+✖ dplyr::rename()    masks plyr::rename()
+✖ dplyr::summarise() masks plyr::summarise()
+✖ dplyr::summarize() masks plyr::summarize()
+ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readxl' was built under R version 4.2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'writexl' was built under R version 4.2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'conflicted' was built under R version 4.2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::filter over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>arrange)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::arrange over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>summarize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::summarize over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>summarise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::summarise over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>mutate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::mutate over any other package.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Raw data  </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># readxl is a package that reads in data from an excel file. </span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the names of the sheets in a workbook </span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(<span class="st">"Data.xlsx"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sites"            "Fish"             "Landscape"        "TraitsTable"     
+[5] "master_taxa_list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"Fish"</span>) </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the names of variables in this file - note that most are in uppercase and a few in lowercase</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># For consistency and ease of working with data, we want to set those lowercase to uppercase. We will keep EventID in mixed case.</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "EventID" "ALCH"    "AMCL"    "AMME"    "AMNA"    "AMNE"    "AMPE"   
+  [8] "AMRU"    "ANRO"    "APGR"    "CAAN"    "CAAU"    "CACA"    "CACO"   
+ [15] "CACT"    "CACY"    "CAVE"    "CLEL"    "CLFU"    "COBA"    "COBL"   
+ [22] "COCA"    "COCO"    "COCR"    "COGI"    "COKA"    "CORO"    "CRCI"   
+ [29] "CTID"    "CYAN"    "CYCA"    "CYGA"    "CYSP"    "CYWH"    "DOCE"   
+ [36] "DOPE"    "ERDI"    "EROB"    "ESAM"    "ESLU"    "ESMA"    "ESNI"   
+ [43] "ETBL"    "ETCA"    "ETCM"    "ETFL"    "ETLO"    "ETMA"    "ETNI"   
+ [50] "ETOL"    "ETOS"    "ETSI"    "ETTI"    "ETVA"    "ETZO"    "EXLA"   
+ [57] "EXMA"    "FUCA"    "FUDI"    "GAAF"    "GAHO"    "HIAL"    "HITE"   
+ [64] "HYAM"    "HYNI"    "HYRE"    "ICBD"    "ICBU"    "ICCY"    "ICFO"   
+ [71] "ICGR"    "ICNI"    "ICPU"    "ICUN"    "LAAE"    "LAAP"    "LASI"   
+ [78] "LEAU"    "LECY"    "LEGI"    "LEGU"    "LEHU"    "LEMA"    "LEME"   
+ [85] "LEMI"    "LEOS"    "LUAL"    "LUCH"    "LUCO"    "LYAR"    "LYUM"   
+ [92] "MAAE"    "MAHY"    "MAMA"    "MAST"    "MIDO"    "MIME"    "MIPU"   
+ [99] "MISA"    "MOAM"    "MOAN"    "MOBR"    "MOCA"    "MOCH"    "MODU"   
+[106] "MOER"    "MOMA"    "MOSA"    "NOAM"    "NOAR"    "NOAT"    "NOBC"   
+[113] "NOBL"    "NOBO"    "NOBU"    "NOCY"    "NOEL"    "NOFL"    "NOFU"   
+[120] "NOHU"    "NOIN"    "NOLE"    "NOMI"    "NOMU"    "NOPH"    "NOPL"   
+[127] "NOPR"    "NORU"    "NOSC"    "NOSG"    "NOST"    "NOTE"    "NOVO"   
+[134] "NOWI"    "ONMY"    "PABO"    "PECA"    "PECO"    "PEEV"    "PEFL"   
+[141] "PEGY"    "PEMA"    "PEMC"    "PENO"    "PEOM"    "PEOX"    "PEPH"   
+[148] "PERO"    "PESC"    "PESH"    "PHER"    "PHMI"    "PHOR"    "PHTE"   
+[155] "PINO"    "PIPR"    "PIVI"    "POAN"    "PONI"    "POSP"    "PYOL"   
+[162] "RHAT"    "RHCA"    "RHOB"    "saca"    "safo"    "satr"    "savi"   
+[169] "seat"    "seco"    "thrh"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cts)[<span class="fu">names</span>(cts)<span class="sc">!=</span><span class="st">'EventID'</span>] <span class="ot">&lt;-</span> <span class="fu">toupper</span>(<span class="fu">names</span>(cts)[<span class="fu">names</span>(cts)<span class="sc">!=</span><span class="st">'EventID'</span>])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "EventID" "ALCH"    "AMCL"    "AMME"    "AMNA"    "AMNE"    "AMPE"   
+  [8] "AMRU"    "ANRO"    "APGR"    "CAAN"    "CAAU"    "CACA"    "CACO"   
+ [15] "CACT"    "CACY"    "CAVE"    "CLEL"    "CLFU"    "COBA"    "COBL"   
+ [22] "COCA"    "COCO"    "COCR"    "COGI"    "COKA"    "CORO"    "CRCI"   
+ [29] "CTID"    "CYAN"    "CYCA"    "CYGA"    "CYSP"    "CYWH"    "DOCE"   
+ [36] "DOPE"    "ERDI"    "EROB"    "ESAM"    "ESLU"    "ESMA"    "ESNI"   
+ [43] "ETBL"    "ETCA"    "ETCM"    "ETFL"    "ETLO"    "ETMA"    "ETNI"   
+ [50] "ETOL"    "ETOS"    "ETSI"    "ETTI"    "ETVA"    "ETZO"    "EXLA"   
+ [57] "EXMA"    "FUCA"    "FUDI"    "GAAF"    "GAHO"    "HIAL"    "HITE"   
+ [64] "HYAM"    "HYNI"    "HYRE"    "ICBD"    "ICBU"    "ICCY"    "ICFO"   
+ [71] "ICGR"    "ICNI"    "ICPU"    "ICUN"    "LAAE"    "LAAP"    "LASI"   
+ [78] "LEAU"    "LECY"    "LEGI"    "LEGU"    "LEHU"    "LEMA"    "LEME"   
+ [85] "LEMI"    "LEOS"    "LUAL"    "LUCH"    "LUCO"    "LYAR"    "LYUM"   
+ [92] "MAAE"    "MAHY"    "MAMA"    "MAST"    "MIDO"    "MIME"    "MIPU"   
+ [99] "MISA"    "MOAM"    "MOAN"    "MOBR"    "MOCA"    "MOCH"    "MODU"   
+[106] "MOER"    "MOMA"    "MOSA"    "NOAM"    "NOAR"    "NOAT"    "NOBC"   
+[113] "NOBL"    "NOBO"    "NOBU"    "NOCY"    "NOEL"    "NOFL"    "NOFU"   
+[120] "NOHU"    "NOIN"    "NOLE"    "NOMI"    "NOMU"    "NOPH"    "NOPL"   
+[127] "NOPR"    "NORU"    "NOSC"    "NOSG"    "NOST"    "NOTE"    "NOVO"   
+[134] "NOWI"    "ONMY"    "PABO"    "PECA"    "PECO"    "PEEV"    "PEFL"   
+[141] "PEGY"    "PEMA"    "PEMC"    "PENO"    "PEOM"    "PEOX"    "PEPH"   
+[148] "PERO"    "PESC"    "PESH"    "PHER"    "PHMI"    "PHOR"    "PHTE"   
+[155] "PINO"    "PIPR"    "PIVI"    "POAN"    "PONI"    "POSP"    "PYOL"   
+[162] "RHAT"    "RHCA"    "RHOB"    "SACA"    "SAFO"    "SATR"    "SAVI"   
+[169] "SEAT"    "SECO"    "THRH"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An alternative approach is with rename_with function</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">&lt;-</span> cts <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rename_with</span>(toupper, <span class="at">.cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(cts))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"Sites"</span>)  </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the .name_repair argument ensures that any names with spaces or symbols are "fixed" by replacing with '.'</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>, <span class="st">"TraitsTable"</span>, <span class="at">.name_repair =</span> <span class="st">"universal"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `IP SEAT` -&gt; `IP.SEAT`
+• `Benthic CACO` -&gt; `Benthic.CACO`
+• `Tol Benthic` -&gt; `Tol.Benthic`
+• `Int Benthic` -&gt; `Int.Benthic`
+• `Tol Cyprinid` -&gt; `Tol.Cyprinid`
+• `Int Cyprinid` -&gt; `Int.Cyprinid`
+• `Int RGS` -&gt; `Int.RGS`
+• `Int GSS` -&gt; `Int.GSS`
+• `McC CGS` -&gt; `McC.CGS`
+• `McC CGS2` -&gt; `McC.CGS2`
+• `CGS RGS` -&gt; `CGS.RGS`</code></pre>
+</div>
+</div>
+</section>
+<section id="wrangling---pivots-joins-mutate-and-summarize" class="level2 scrollable">
+<h2 class="scrollable anchored" data-anchor-id="wrangling---pivots-joins-mutate-and-summarize">2. Wrangling - pivots, joins, mutate and summarize</h2>
+<ul>
+<li><p><strong>pivot_longer</strong></p></li>
+<li><p><strong>pivot_wider</strong></p></li>
+<li><p><strong>joins -</strong> join one tibble to another</p></li>
+<li><p><strong>mutate</strong> - make new columns</p></li>
+<li><p><strong>summarize/summarise</strong></p></li>
+</ul>
+<section id="pivoting-data" class="level3">
+<h3 class="anchored" data-anchor-id="pivoting-data">2.1 Pivoting data</h3>
+<p>Pivoting data has evolved over the years in the R Studio tidyverse.</p>
+<p>The functions <em>melt</em> and <em>cast (dcast) in the reshape2 package</em> led to the functions <em>gather</em> and <em>spread,</em> which had similar purpose with different approach. So if you see these terms thrown around, they are earlier incarnations of the pivot functions. You may still find <em>gather</em>, <em>spread</em>, <em>melt,</em> and <em>dcast</em> in code others have written - and they will both work, they just aren’t supported any longer.</p>
+<p>Data or tibbles come in two forms - <em>long</em> and <em>wide</em></p>
+<p>All of the tibbles currently in our R environment are in wide format.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot traits and fish data into long format</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note how single and double quotes can be used in R - no difference</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>traits_long <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">39</span>, <span class="at">names_to =</span><span class="st">'trait'</span>,<span class="at">values_to =</span><span class="st">'traitvalue'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SpeciesCode, trait)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#you can choose to tell pivot what not to include instead of what to include</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>cts_long <span class="ot">&lt;-</span> cts <span class="sc">%&gt;%</span> </span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> ALCH<span class="sc">:</span>THRH, <span class="at">names_to=</span><span class="st">"SpeciesCode"</span>, <span class="at">values_to=</span><span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, SpeciesCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="handling-nas" class="level3 scrollable">
+<h3 class="scrollable anchored" data-anchor-id="handling-nas">2.2 Handling NAs</h3>
+<ul>
+<li><p>Missing values in R are represented by NA</p></li>
+<li><p>It’s a good idea to look at your data and get comfortable with NAs and how to omit, replace, or just leave them be (usually the best option).</p></li>
+<li><p>You can replace NAs with values but these replacements must be consistent with the data format of the column.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(cts_long)) <span class="co"># count number of NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(traits_long))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Next we delete cases where there are 0 fish of a given species </span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cts_long2 <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(count<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If we take this long data frame and pivot wide again, there will be NAs where we removed 0 values</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>cts_wide2 <span class="ot">&lt;-</span> cts_long2 <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> EventID, <span class="at">names_from=</span><span class="st">'SpeciesCode'</span>, <span class="at">values_from=</span><span class="st">'count'</span>) </span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 100
+  EventID  AMRU  CAAN  CACO  ETBL  ETFL  ETNI  ETVA  ICPU  LECY  LEMA  LEME
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1    5618     3     8     1     2     6    13     2     2     7     4    21
+2    5620    NA    68    12    NA    44    23    NA    NA    42     2    NA
+3    5624    NA    10    NA     8    20     9    NA    NA    NA     4     1
+4    5628     5     2    NA     1    NA    18    NA    NA     1    NA    11
+5    5632    10    15     6     5     6     4    NA    NA     4    NA     5
+6    5638     8    38     4     1     4    14    NA    NA     1    NA    11
+# ℹ 88 more variables: LUCH &lt;dbl&gt;, MIDO &lt;dbl&gt;, MIPU &lt;dbl&gt;, MISA &lt;dbl&gt;,
+#   MODU &lt;dbl&gt;, MOER &lt;dbl&gt;, PECA &lt;dbl&gt;, PEMC &lt;dbl&gt;, PINO &lt;dbl&gt;, SEAT &lt;dbl&gt;,
+#   AMNA &lt;dbl&gt;, HYNI &lt;dbl&gt;, RHOB &lt;dbl&gt;, ETZO &lt;dbl&gt;, NOMI &lt;dbl&gt;, NOPH &lt;dbl&gt;,
+#   NOST &lt;dbl&gt;, LAAE &lt;dbl&gt;, NOBU &lt;dbl&gt;, NORU &lt;dbl&gt;, PESC &lt;dbl&gt;, CYCA &lt;dbl&gt;,
+#   CYSP &lt;dbl&gt;, PEOM &lt;dbl&gt;, PECO &lt;dbl&gt;, AMPE &lt;dbl&gt;, NOMU &lt;dbl&gt;, CYWH &lt;dbl&gt;,
+#   MIME &lt;dbl&gt;, LAAP &lt;dbl&gt;, LEOS &lt;dbl&gt;, NOVO &lt;dbl&gt;, ONMY &lt;dbl&gt;, LYUM &lt;dbl&gt;,
+#   MOAN &lt;dbl&gt;, LASI &lt;dbl&gt;, NOAT &lt;dbl&gt;, MOBR &lt;dbl&gt;, APGR &lt;dbl&gt;, DOCE &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If we now fill in missing values with 0, we can see them in the wide data frame again</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>cts_wide2[<span class="fu">is.na</span>(cts_wide2)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 100
+  EventID  AMRU  CAAN  CACO  ETBL  ETFL  ETNI  ETVA  ICPU  LECY  LEMA  LEME
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1    5618     3     8     1     2     6    13     2     2     7     4    21
+2    5620     0    68    12     0    44    23     0     0    42     2     0
+3    5624     0    10     0     8    20     9     0     0     0     4     1
+4    5628     5     2     0     1     0    18     0     0     1     0    11
+5    5632    10    15     6     5     6     4     0     0     4     0     5
+6    5638     8    38     4     1     4    14     0     0     1     0    11
+# ℹ 88 more variables: LUCH &lt;dbl&gt;, MIDO &lt;dbl&gt;, MIPU &lt;dbl&gt;, MISA &lt;dbl&gt;,
+#   MODU &lt;dbl&gt;, MOER &lt;dbl&gt;, PECA &lt;dbl&gt;, PEMC &lt;dbl&gt;, PINO &lt;dbl&gt;, SEAT &lt;dbl&gt;,
+#   AMNA &lt;dbl&gt;, HYNI &lt;dbl&gt;, RHOB &lt;dbl&gt;, ETZO &lt;dbl&gt;, NOMI &lt;dbl&gt;, NOPH &lt;dbl&gt;,
+#   NOST &lt;dbl&gt;, LAAE &lt;dbl&gt;, NOBU &lt;dbl&gt;, NORU &lt;dbl&gt;, PESC &lt;dbl&gt;, CYCA &lt;dbl&gt;,
+#   CYSP &lt;dbl&gt;, PEOM &lt;dbl&gt;, PECO &lt;dbl&gt;, AMPE &lt;dbl&gt;, NOMU &lt;dbl&gt;, CYWH &lt;dbl&gt;,
+#   MIME &lt;dbl&gt;, LAAP &lt;dbl&gt;, LEOS &lt;dbl&gt;, NOVO &lt;dbl&gt;, ONMY &lt;dbl&gt;, LYUM &lt;dbl&gt;,
+#   MOAN &lt;dbl&gt;, LASI &lt;dbl&gt;, NOAT &lt;dbl&gt;, MOBR &lt;dbl&gt;, APGR &lt;dbl&gt;, DOCE &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="joins" class="level3 scrollable">
+<h3 class="scrollable anchored" data-anchor-id="joins">2.3 Joins</h3>
+<ul>
+<li><p>Anyone working in databases such as Access or SQL will know about joins. Joins are largely a tidyverse version of the base R <em>merge</em> function. Joins are very powerful tools to get data in a form that you want.</p></li>
+<li><p>It is important to understand what you are trying to achieve by merging or joining datasets in order to obtain what you want and understand what you get.</p></li>
+<li><p>Some examples of joining functions in both base R and dplyr join functions:</p>
+<ul>
+<li><p><strong>inner_join(x, y)</strong> - all variables from both datasets and only those rows with matching key variables (equivalent to <strong>merge(x, y)</strong>)</p></li>
+<li><p><strong>semi_join(x, y)</strong> - only retains variables in <em>x</em> and only rows that match key variables in <em>y</em></p></li>
+<li><p><strong>left_join(x, y)</strong> - retains all variables in both x and y matched by key variables and all rows in x (equivalent to <strong>merge(x, y, all.x=TRUE)</strong>)</p></li>
+<li><p><strong>outer_join(x, y)</strong> - retains all variables in both x and y and all rows in both x and y (equivalent to <strong>merge(x, y, all=TRUE)</strong>)</p></li>
+<li><p><strong>anti_join(x, y)</strong> - retains all variables in x and only those rows that do NOT match up to y by key variables</p></li>
+</ul></li>
+</ul>
+<p>We will walk through a couple examples relevant to our datasets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anti_joins are handy to check for inconsistncies between two columns that you plan to use as a join key.</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Most times when I do this I will find more than one misspelling or inconsistency.</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for inconsistencies between species codes/spellings - usually you would do this with the left_hand side of the eventual join listed first.  </span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>nomatch_cnts <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(cts_long2, traits_long, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) </span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, it is ok and expected that the traits have more species than are listed in the counts. </span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>nomatch_spp <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(traits_long, cts_long2,  <span class="at">by=</span><span class="st">"SpeciesCode"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SpeciesCode) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="co"># equivalent to unique() in base R</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we might want to merge the long counts data and the long species trait data</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We will start by subsetting the traits data to only keep a small number of traits # that can be used to calculate fish metrics</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>traits_long_sub <span class="ot">&lt;-</span> <span class="fu">filter</span>(traits_long, trait <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Benthic'</span>, <span class="st">'ModTol'</span>, <span class="st">'Cottid'</span>, <span class="st">'Cyprinid'</span>, <span class="st">'Tol.Benthic'</span>))</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) <span class="co"># Warning because this function is only intended for one-to-one matches between x and y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(cts_long2, traits_long_sub, by = "SpeciesCode"): Each row in `x` is expected to match at most 1 row in `y`.
+ℹ Row 1 of `x` matches multiple rows.
+ℹ If multiple matches are expected, set `multiple = "all"` to silence this
+  warning.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the multiple argument avoids this warning message if we expect there to be more than one match between x and y</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>, <span class="at">multiple =</span> <span class="st">'all'</span>) </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using merge from base R provides the same result</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>cts_traits_alt <span class="ot">&lt;-</span> <span class="fu">merge</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="break---back-in-15-minutes" class="level3">
+<h3 class="anchored" data-anchor-id="break---back-in-15-minutes">BREAK - Back in 15 minutes</h3>
+<p>Use this time to ask questions or catch up</p>
+</section>
+<section id="mutate-and-summarize" class="level3 scrollable">
+<h3 class="scrollable anchored" data-anchor-id="mutate-and-summarize">2.4 Mutate and Summarize</h3>
+<ul>
+<li><p>To change a column, you <em>mutate</em> that column. You can either mutate the existing column or you can make a new column with the saved data.</p></li>
+<li><p>The <em>revalue()</em> function is used to create shortened trait names, and an alternative approach using <em>ifelse()</em> is also shown.</p></li>
+<li><p>To <em>summarize</em> (or <em>summarise</em> - both work) - you are usually making the dataframe smaller - reporting the raw data by summary statistics.</p></li>
+<li><p>The function <em>group_by</em> may be used to summarize data, but note that the <em>summarize</em> function only expects one grouping variable. To avoid any confusion and any associated warning messages, use the <em>.groups=‘keep’</em> argument in the <em>summarize</em> function.</p></li>
+<li><p>There are always many ways to perform the same task. Included below the code for <strong>met_1</strong> is an alternate way to get the same result using functions from the <em>plyr</em> package.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now having fixed that - we can go ahead and run that left_join</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The length of match_1 should equal the length of the cts_long2 file * the number of traits</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">5571</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27855</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use mutate() to create Count.trait which is the count times the indicator variable for each trait</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ct_trait =</span> count<span class="sc">*</span>traitvalue)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get rid of those combinations that are 0.  </span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>match_2 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ct_trait<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># We might want to rename the traits to more compact names</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use the revalue function to do this</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>match_3 <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">revalue</span>(trait, <span class="fu">c</span>(<span class="st">'Benthic'</span> <span class="ot">=</span> <span class="st">'BENT'</span>,</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cyprinid'</span> <span class="ot">=</span> <span class="st">'CYPR'</span>,</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Tol.Benthic'</span> <span class="ot">=</span> <span class="st">'TOLBENT'</span>,</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cottid'</span> <span class="ot">=</span> <span class="st">'COTTID'</span>,</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'ModTol'</span> <span class="ot">=</span> <span class="st">'MODTOL'</span>)))</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(match_3<span class="sc">$</span>trait_short)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "BENT"    "CYPR"    "TOLBENT" "MODTOL"  "COTTID" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternate way to do it using ifelse()</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>match_3_alt <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Benthic'</span>, <span class="st">'BENT'</span>, </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cyprinid'</span>, <span class="st">'CYPR'</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Tol.Benthic'</span>, <span class="st">'TOLBENT'</span>,</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cottid'</span>, <span class="st">'COTTID'</span>,</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">'MODTOL'</span>)))))</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the use of group_by in this next bit of code.</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of species per trait and the number of individuals by trait</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This results in a table of traits instead of species</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice the ungroup() statement.  This removes the grouping that you applied to the table met_1. This is a good practice, especially if you decide to later do other operations on this table.  </span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>met_1 <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID, trait_short) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait), </span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait), <span class="at">.groups =</span> <span class="st">'keep'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is equivalent to the following:</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>met_1_alt <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ddply</span>(<span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'trait_short'</span>), plyr<span class="sc">::</span>summarize, </span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait),</span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait))</span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total number of individuals per sample</span></span>
+<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a>cts_tot <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span></span>
+<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span> </span>
+<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">TOTAL=</span><span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge these totals with met.1 and then calculate proportions by trait </span></span>
+<span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a><span class="co"># and EventID. </span></span>
+<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(met_1, cts_tot, <span class="at">by=</span><span class="st">"EventID"</span>)</span>
+<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb55-40"><a href="#cb55-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PROP =</span> SUM<span class="sc">/</span>TOTAL)</span>
+<span id="cb55-41"><a href="#cb55-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-42"><a href="#cb55-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot longer so that we can rename metrics using traits as prefixes</span></span>
+<span id="cb55-43"><a href="#cb55-43" aria-hidden="true" tabindex="-1"></a>met_2_long <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span></span>
+<span id="cb55-44"><a href="#cb55-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(NTAX<span class="sc">:</span>SUM, PROP)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-45"><a href="#cb55-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metric =</span> <span class="fu">paste</span>(trait_short, name, <span class="at">sep =</span> <span class="st">'_'</span>)) </span>
+<span id="cb55-46"><a href="#cb55-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-47"><a href="#cb55-47" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "EventID"     "trait_short" "TOTAL"       "name"        "value"      
+[6] "metric"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(met_2_long<span class="sc">$</span>metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"    "CYPR_NTAX"    "CYPR_SUM"    
+ [6] "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"   "MODTOL_PROP"  "TOLBENT_NTAX"
+[11] "TOLBENT_SUM"  "TOLBENT_PROP" "COTTID_NTAX"  "COTTID_SUM"   "COTTID_PROP" </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="prepare-data-for-output" class="level2 scrollable">
+<h2 class="scrollable anchored" data-anchor-id="prepare-data-for-output">3. Prepare data for output</h2>
+<section id="pivot-data-wider" class="level3 scrollable">
+<h3 class="scrollable anchored" data-anchor-id="pivot-data-wider">3.1 Pivot data wider</h3>
+<ul>
+<li><p>To store data in databases, the long format is more appropriate, but to share with someone not familiar with long format, we may want to put that data back into wide format.</p></li>
+<li><p>When we do that, we end up with missing values where no fish with a particular trait was present for that <em>EventID</em>. We can fix that by filling in missing values with 0.</p></li>
+<li><p>We show this in two separate steps but can perform all at once using pipelining (<strong>%&gt;%)</strong></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot wider so that metrics are in columns - this produces NAs because </span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># some metrics have no individuals, so they were not in the long data</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># frame for some EventIDs. </span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(met_2_long, <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'TOTAL'</span>),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">names_from=</span><span class="st">'metric'</span>, <span class="at">values_from=</span><span class="st">'value'</span>) </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in NAs with 0</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we could have done this all at once using the pipeline above</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co"># It is just shown separately here to show the missing values before filling </span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="co"># them in.</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> met_2_wide <span class="sc">%&gt;%</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "EventID"      "TOTAL"        "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"   
+ [6] "CYPR_NTAX"    "CYPR_SUM"     "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"  
+[11] "MODTOL_PROP"  "TOLBENT_NTAX" "TOLBENT_SUM"  "TOLBENT_PROP" "COTTID_NTAX" 
+[16] "COTTID_SUM"   "COTTID_PROP" </code></pre>
+</div>
+</div>
+</section>
+<section id="export-data-to-a-file" class="level3 scrollable">
+<h3 class="scrollable anchored" data-anchor-id="export-data-to-a-file">3.2 Export data to a file</h3>
+<ul>
+<li><p>R can export to a variety of formats. Some of the most common types are comma-delimited (.csv) and Excel.</p></li>
+<li><p>We will cover examples of these two types.</p></li>
+<li><p>A longer format is tidier to work with, so we will first pivot the dataset longer</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "EventID"      "TOTAL"        "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"   
+ [6] "CYPR_NTAX"    "CYPR_SUM"     "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"  
+[11] "MODTOL_PROP"  "TOLBENT_NTAX" "TOLBENT_SUM"  "TOLBENT_PROP" "COTTID_NTAX" 
+[16] "COTTID_SUM"   "COTTID_PROP" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>met_out <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(met_2_wide, <span class="at">cols =</span> TOTAL<span class="sc">:</span>COTTID_PROP, </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">'Metric'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save." class="level4">
+<h4 class="anchored" data-anchor-id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save.">Now we can save that data frame to a .csv - this is the simplest way to save.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics.csv"</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If we look at this file, we see an extra column with no heading. That column </span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># represents the row names and can create some issues, so we want to exclude </span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># those. </span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If we read that file back in, R names that column X</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>fish_mets <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics.csv"</span>)</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  X EventID    Metric Value
+1 1    5618     TOTAL 105.0
+2 2    5618 BENT_NTAX  12.0
+3 3    5618  BENT_SUM  42.0
+4 4    5618 BENT_PROP   0.4
+5 5    5618 CYPR_NTAX   4.0
+6 6    5618  CYPR_SUM  31.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics_noRowNames.csv"</span>, <span class="at">row.names=</span>F)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we read this file back in and note that it is a bit cleaner without that </span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># X column</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>fish_mets_noRowNames <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics_noRowNames.csv"</span>)</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets_noRowNames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EventID    Metric Value
+1    5618     TOTAL 105.0
+2    5618 BENT_NTAX  12.0
+3    5618  BENT_SUM  42.0
+4    5618 BENT_PROP   0.4
+5    5618 CYPR_NTAX   4.0
+6    5618  CYPR_SUM  31.0</code></pre>
+</div>
+</div>
+</section>
+<section id="now-lets-try-saving-as-a-worksheet-in-an-excel-file." class="level4">
+<h4 class="anchored" data-anchor-id="now-lets-try-saving-as-a-worksheet-in-an-excel-file.">Now let’s try saving as a worksheet in an Excel file.</h4>
+<ul>
+<li><p>We can save multiple data frames into the same Excel file as worksheets.</p></li>
+<li><p>Below is just one approach using the <em>writexl</em> package.</p></li>
+<li><p>Look at both files to see the differences between the two.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">Metrics =</span> met_out, <span class="at">Metrics_wide =</span> met_2_wide), </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Fish_Metrics.xlsx"</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># To save just one data frame into an Excel file with the worksheet named Sheet1</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(met_out, <span class="st">"Fish_Metrics_OneWorksheet.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="in-this-module" class="level3">
+<h3 class="anchored" data-anchor-id="in-this-module">In this module:</h3>
+<ul>
+<li><p>Reviewed importing data</p></li>
+<li><p>Pivoting data into wider or longer format</p></li>
+<li><p>Handling missing values (NAs)</p></li>
+<li><p>Joining data frames</p></li>
+<li><p>Adding or changing variables</p></li>
+<li><p>Summarizing data</p></li>
+<li><p>Exporting data to files</p></li>
+</ul>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+</section>
+</section>
+<section id="break" class="level2">
+<h2 class="anchored" data-anchor-id="break">BREAK</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

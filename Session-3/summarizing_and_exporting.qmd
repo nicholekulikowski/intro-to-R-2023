@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-## Setup
+## 1. Setup
 
 A number of packages are collected under the library "tidyverse". These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.
 
@@ -56,7 +56,7 @@ traits <- read_excel("Data.xlsx", "TraitsTable", .name_repair = "universal")
 
 ```
 
-## Wrangling - pivots, joins, mutate and summarize {.scrollable}
+## 2. Wrangling - pivots, joins, mutate and summarize {.scrollable}
 
 -   **pivot_longer**
 
@@ -68,7 +68,7 @@ traits <- read_excel("Data.xlsx", "TraitsTable", .name_repair = "universal")
 
 -   **summarize/summarise**
 
-### Pivoting data
+### 2.1 Pivoting data
 
 Pivoting data has evolved over the years in the R Studio tidyverse.
 
@@ -91,7 +91,7 @@ cts_long <- cts %>%
   arrange(EventID, SpeciesCode)
 ```
 
-### Handling NAs {.scrollable}
+### 2.2 Handling NAs {.scrollable}
 
 -   Missing values in R are represented by NA
 
@@ -120,7 +120,7 @@ cts_wide2[is.na(cts_wide2)] <- 0
 head(cts_wide2)
 ```
 
-### Joins {.scrollable}
+### 2.3 Joins {.scrollable}
 
 -   Anyone working in databases such as Access or SQL will know about joins. Joins are largely a tidyverse version of the base R *merge* function. Joins are very powerful tools to get data in a form that you want.
 
@@ -166,11 +166,17 @@ cts_traits <- inner_join(cts_long2, traits_long_sub, by = 'SpeciesCode', multipl
 cts_traits_alt <- merge(cts_long2, traits_long_sub, by = 'SpeciesCode')
 ```
 
-### Mutate and Summarize {.scrollable}
+### BREAK - Back in 15 minutes
+
+Use this time to ask questions or catch up
+
+### 2.4 Mutate and Summarize {.scrollable}
 
 -   To change a column, you *mutate* that column. You can either mutate the existing column or you can make a new column with the saved data.
 
--   To *summarize* (or *summarise* - both work) - you are usually making the dataframe smaller - reporting the raw data by summary statistics
+-   The *revalue()* function is used to create shortened trait names, and an alternative approach using *ifelse()* is also shown.
+
+-   To *summarize* (or *summarise* - both work) - you are usually making the dataframe smaller - reporting the raw data by summary statistics.
 
 -   The function *group_by* may be used to summarize data, but note that the *summarize* function only expects one grouping variable. To avoid any confusion and any associated warning messages, use the *.groups='keep'* argument in the *summarize* function.
 
@@ -191,6 +197,25 @@ match_1 <- match_1 %>%
 match_2 <- match_1 %>% 
   filter(ct_trait>0)
 
+# We might want to rename the traits to more compact names
+# We can use the revalue function to do this
+match_3 <- match_2 %>%
+  mutate(trait_short = revalue(trait, c('Benthic' = 'BENT',
+                                        'Cyprinid' = 'CYPR',
+                                        'Tol.Benthic' = 'TOLBENT',
+                                        'Cottid' = 'COTTID',
+                                        'ModTol' = 'MODTOL')))
+
+unique(match_3$trait_short)
+
+# Alternate way to do it using ifelse()
+match_3_alt <- match_2 %>%
+  mutate(trait_short = ifelse(trait=='Benthic', 'BENT', 
+                              ifelse(trait=='Cyprinid', 'CYPR',
+                                     ifelse(trait=='Tol.Benthic', 'TOLBENT',
+                                            ifelse(trait=='Cottid', 'COTTID',
+                                                   'MODTOL')))))
+
 # summarize
 # Note the use of group_by in this next bit of code.
 
@@ -198,22 +223,22 @@ match_2 <- match_1 %>%
 # This results in a table of traits instead of species
 # Notice the ungroup() statement.  This removes the grouping that you applied to the table met_1. This is a good practice, especially if you decide to later do other operations on this table.  
 
-met_1 <- match_2 %>%
-  group_by(EventID, trait) %>% 
-  summarize(richness = length(ct_trait), 
-            sum = sum(ct_trait), .groups = 'keep') %>%
+met_1 <- match_3 %>%
+  group_by(EventID, trait_short) %>% 
+  summarize(NTAX = length(ct_trait), 
+            SUM = sum(ct_trait), .groups = 'keep') %>%
   ungroup()
 
 # This is equivalent to the following:
-met_1_alt <- match_2 %>%
-  ddply(c('EventID', 'trait'), plyr::summarize, 
-        richness = length(ct_trait),
-        sum = sum(ct_trait))
+met_1_alt <- match_3 %>%
+  ddply(c('EventID', 'trait_short'), plyr::summarize, 
+        NTAX = length(ct_trait),
+        SUM = sum(ct_trait))
 
 # Calculate the total number of individuals per sample
 cts_tot <- cts_long %>%
   group_by(EventID) %>% 
-  summarise(total=sum(count)) %>%
+  summarise(TOTAL=sum(count)) %>%
   ungroup()
 
 
@@ -222,12 +247,12 @@ cts_tot <- cts_long %>%
 met_2 <- left_join(met_1, cts_tot, by="EventID")
 
 met_2 <- met_2 %>% 
-  mutate(prop = sum/total)
+  mutate(PROP = SUM/TOTAL)
 
 # Pivot longer so that we can rename metrics using traits as prefixes
 met_2_long <- met_2 %>%
-  pivot_longer(cols = c(richness:sum, prop)) %>%
-  mutate(metric = paste(trait, name, sep = '_')) 
+  pivot_longer(cols = c(NTAX:SUM, PROP)) %>%
+  mutate(metric = paste(trait_short, name, sep = '_')) 
 
 names(met_2_long)
 
@@ -235,9 +260,9 @@ unique(met_2_long$metric)
 
 ```
 
-## Prepare data for output {.scrollable}
+## 3. Prepare data for output {.scrollable}
 
-### Pivot data wider {.scrollable}
+### 3.1 Pivot data wider {.scrollable}
 
 -   To store data in databases, the long format is more appropriate, but to share with someone not familiar with long format, we may want to put that data back into wide format.
 
@@ -250,7 +275,7 @@ unique(met_2_long$metric)
 # Pivot wider so that metrics are in columns - this produces NAs because 
 # some metrics have no individuals, so they were not in the long data
 # frame for some EventIDs. 
-met_2_wide <- pivot_wider(met_2_long, id_cols = c('EventID', 'total'),
+met_2_wide <- pivot_wider(met_2_long, id_cols = c('EventID', 'TOTAL'),
                           names_from='metric', values_from='value') 
 
 # Fill in NAs with 0
@@ -263,7 +288,7 @@ met_2_wide <- met_2_wide %>%
 names(met_2_wide)
 ```
 
-### Export data to a file {.scrollable}
+### 3.2 Export data to a file {.scrollable}
 
 -   R can export to a variety of formats. Some of the most common types are comma-delimited (.csv) and Excel.
 
@@ -274,7 +299,7 @@ names(met_2_wide)
 ```{r melt-output, echo=TRUE}
 names(met_2_wide)
 
-met_out <- pivot_longer(met_2_wide, cols = total:Cottid_prop, 
+met_out <- pivot_longer(met_2_wide, cols = TOTAL:COTTID_PROP, 
                         names_to = 'Metric', values_to = 'Value')
 
 
