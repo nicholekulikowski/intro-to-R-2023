@@ -5,7 +5,20 @@ format: html
 editor: visual
 ---
 
-## 1. Setup
+## GROUND RULES REMINDER!
+
+1.  Participants will be muted in the main session. You will have time to unmute in breakout rooms.​
+
+2.  The chat will be monitored by Logan for technical issues and questions- ask away!​
+
+3.  Sessions are being recorded if you want to go back and review​
+
+4.  Try not to multitask! We are all guilty of it, but it\'s easy to fall behind if you don\'t pay attention​
+
+5.  Lastly, don\'t get discouraged if anything feels difficult! Coding takes time and can feel hard at first. Any extra time at the end and in breakout rooms will be used for troubleshooting, so hang in there!​
+
+## 
+1. Setup
 
 A number of packages are collected under the library "tidyverse". These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.
 
