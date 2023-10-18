@@ -8,7 +8,7 @@ This repository contains all code, handouts, and other materials for the "Introd
 - Louis Reynolds
 
 ## Other Support Staff
-
+- Joseph Bundy
 ## Workshop Preparation
 Before Day 1, be sure to have both R (the language) and RStudio (the IDE) installed on your EPA computer. See link for instructions.
 
