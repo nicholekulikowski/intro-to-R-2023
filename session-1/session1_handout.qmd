@@ -1,5 +1,5 @@
 ---
-title: "handout_session1"
+title: "Intro To R: Session 1 Handout"
 format: html
 editor: visual
 ---
@@ -11,6 +11,7 @@ editor: visual
 -   **R**- a programming language used for statistical computing and data analysis.\
 -   **RStudio**- an integrated development environment (IDE) that uses R language. It is one of the most popular R language editors, and the one we will be using throughout this workshop!\
 -   **Base R**- Everything you automatically get when you first install R.
+-   **Posit**- the company that was formerly named "RStudio" that created the RStudio IDE, and has since expanded its functions to so much more
 
 ```{r}
 library(knitr)
@@ -133,8 +134,8 @@ Navigate to the "Tools" tab on the top left. Click Tools, Install Packages. This
 
 We can also install packages using the function **install.packages()**. Type the following in your script:
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE, results=FALSE}
-install.packages("dplyr")
+```{r, echo=TRUE, message=FALSE, warning=FALSE, results=FALSE,render=FALSE}
+install.packages("dplyr", repos = "http://cran.us.r-project.org")
 
 ```
 
@@ -346,22 +347,32 @@ Every function in R has a help page that can be accessed right in RStudio. We ca
 Note that this generates the help page for the *filter()* function. This is in the bottom right pane under the "Help" tab. You can do this with any function.\
 Another way to access the Help page is by going to Help, Search R Help on the top left. This will do the same thing- just type the function you are looking for.
 
-### 4.2 Arguments
+### 4.2 RStudio Cheatsheets and Global Options
+
+Many packages and topics in R have user-friendly cheatsheets which are a great resource. Some are written by Posit (formerly RStudio) and others are made by R users from all over the world.
+
+If you navigate to "Help" in the top-left corner of your screen, and select "Cheat Sheets" you will find many of the most popular ones! The "RStudio IDE Cheat Sheet" gives a nice general overview of some of what we touched on today, and also includes shortcuts that can save coders time. I have one copy printed at my desk for this reason!
+
+### 4.3 Arguments
 
 The code that goes inside functions is called **arguments**. Each function in R has certain **arguments** that it is expecting, and some arguments that are optional.
 
 If you ever forget what the arguments of a specific function are, there are a few things you can do: \* Use the ? or help() function in your Console \* Use the **args()** function, which will print the arguments \* Type your function in the console and then click TAB- you can toggle between arguments with the arrow keys
 
-### 4.3 Errors
+### 4.4 Errors
 
 Errors are not only common when coding, but are inevitable- even for the most advanced R users.
 
 This is by no means comprehensive, but if you do run into errors here are some common mistakes: \* Capitalization \* Misspelling \* Punctuation (forgetting commas, not closing parentheses, forgetting + or %\>%) \* Packages (forgetting to install and/or load a package. Don't forget **library()**)
 
-### 4.4 Google/StackOverflow
+### 4.5 Google/StackOverflow
 
-A coders best friend is Google- if you run into an error you're not sure about and have tried the above methods, try Googling it. Chances are someone else has already had the same problem!
+A coders best friend is Google- if you run into an error you're not sure about and have tried the above methods, try Googling it. Chances are someone else has already had the same problem! Twitter/X is also a popular place for R users to ask questions under the hashtag #RStats
 
 Google tip- Although we love **R**, it can often confuse the internet since it's a single letter. Try Googling "R (insert error)", but if you can't find what you're looking for, also try "R language (insert error)"
+
+### 4.6 More Organization Tips
+
+We touched a little bit on naming conventions, which is one way to help keep code organized while we work. Another useful tool is using the "Projects" feature. On the top-right of your screen, just above the Environment, you should see a dropdown option- if you click on this, you'll see "New Project". Projects are one way to help separate code from different projects you may be working on, and can further increase organization.
 
 ## Activity 2!

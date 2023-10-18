@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lou Reynolds - EPA Region 3">
+
+<title>Module 2 - getting and cleaning data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="getting_cleaning_files/libs/clipboard/clipboard.min.js"></script>
+<script src="getting_cleaning_files/libs/quarto-html/quarto.js"></script>
+<script src="getting_cleaning_files/libs/quarto-html/popper.min.js"></script>
+<script src="getting_cleaning_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="getting_cleaning_files/libs/quarto-html/anchor.min.js"></script>
+<link href="getting_cleaning_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="getting_cleaning_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="getting_cleaning_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="getting_cleaning_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="getting_cleaning_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Module 2 - getting and cleaning data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lou Reynolds - EPA Region 3 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>A number of packages are collected under the library “tidyverse”. These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.</p>
+<p>It is also possible to do anything you might want to do in R using base R language - these are the functions that come packaged with the R installation itself.</p>
+<p>I will demonstrate most of this module using the tidyverse and I will try to show you how some of this might differ from base R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#It is good practice to load all libraries in a chunk at the beginning of your workflow (code).</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer dplyr::filter over any other package.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Here you will set your working directory.  </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/Lreynold/OneDrive - Environmental Protection Agency (EPA)/Desktop/Rbasics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reading-data-into-the-r-environment" class="level2">
+<h2 class="anchored" data-anchor-id="reading-data-into-the-r-environment">Reading data into the R environment</h2>
+<p>When you bring data into R it is stored as a dataframe. There are other objects in R such as matricies, vectors, and lists. As most people are familiar with the structure of a dataframe (it is very much similar to a spreadsheet in structure) we will work with that.</p>
+<ul>
+<li><p>There are many ways to get data into the R environment depending upon what format your data is in and if you will use a package or base R to load it.</p></li>
+<li><p>readxl is a package that reads in data from an excel file.</p>
+<ul>
+<li>https://readxl.tidyverse.org/</li>
+</ul></li>
+<li><p>read_csv is a function in the readr library that loads csv files</p>
+<ul>
+<li>https://readr.tidyverse.org/</li>
+</ul></li>
+<li><p>read.csv is a function in base R that loads csv files</p></li>
+</ul>
+<p>Basics - to review from the previous module</p>
+<ul>
+<li><p>In R, the left side of the &lt;- or = is what you name the output - to the right are the operations and/or the input.</p></li>
+<li><p>You may use &lt;- or =</p></li>
+<li><p>read_csv will bring in csv files (you can usually find a way to bring in a data file).</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Read in Raw data  </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#readxl is a package that reads in data from an excel file. </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Show the names of the sheets in a workbook </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(<span class="st">"Data.xlsx"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Sites"            "Fish"             "Landscape"        "TraitsTable"     
+[5] "master_taxa_list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#You can also use the position of the sheet</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="dv">2</span>)  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Or the title of the sheet</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"Fish"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sites <span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"Sites"</span>)  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"TraitsTable"</span>)  </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>traitsdf <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"FishTraits.csv"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#and sure - R does plain old math too </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">+</span><span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+</section>
+<section id="dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="dataframes">dataframes</h2>
+<p>From the R Documentation of data.frame - A dataframe (or data frame, you will see both forms of spelling) is a list of variables of the same number of rows with unique row names, given class&nbsp;<code>"data.frame"</code>. If no variables are included, the row names determine the number of rows.</p>
+<p>Data that the tidyverse brings into R comes in as a tibble. A tibble differs from a dataframe in that (from https://tibble.tidyverse.org/index.html)</p>
+<ul>
+<li><p>it never changes the type of the inputs (e.g.&nbsp;it keeps list columns unchanged, and never converts strings to factors!),</p></li>
+<li><p>it never changes the names of variables, it only recycles inputs of length 1</p></li>
+<li><p>it never creates row.names().</p></li>
+</ul>
+<p>If you want a deeper dive into this just go to the vignette:</p>
+<p>https://tibble.tidyverse.org/articles/tibble.html</p>
+<p>I work with tibbles all the time - your use case may differ. I just want to call your attention to the differences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#A tibble is a dataframe but a dataframe is not a tibble</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.data.frame</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_tibble</span>(traitsdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#I will use the terms interchangeably as any of these functions will work with tibbles and dataframes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="examining-a-dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="examining-a-dataframe">Examining a Dataframe</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#There are many ways to examine a dataframe in R.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 291   6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [291 × 6] (S3: tbl_df/tbl/data.frame)
+ $ EventID   : num [1:291] 5618 5620 5624 5628 5632 ...
+ $ STATUS    : chr [1:291] "WARM" "WARM" "WARM" "WARM" ...
+ $ REF_CLASS : num [1:291] 3 3 3 3 3 3 3 3 3 3 ...
+ $ DUPLICATE : chr [1:291] "N" "N" "N" "N" ...
+ $ GEAR      : num [1:291] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Ecobasin.x: num [1:291] 8 8 8 8 8 8 8 8 8 8 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "EventID"    "STATUS"     "REF_CLASS"  "DUPLICATE"  "GEAR"      
+[6] "Ecobasin.x"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  EventID STATUS REF_CLASS DUPLICATE  GEAR Ecobasin.x
+    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1    5618 WARM           3 N             0          8
+2    5620 WARM           3 N             0          8
+3    5624 WARM           3 N             0          8
+4    5628 WARM           3 N             0          8
+5    5632 WARM           3 N             0          8
+6    5638 WARM           3 N             0          8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 291
+Columns: 6
+$ EventID    &lt;dbl&gt; 5618, 5620, 5624, 5628, 5632, 5638, 5640, 5644, 5646, 5648,…
+$ STATUS     &lt;chr&gt; "WARM", "WARM", "WARM", "WARM", "WARM", "WARM", "WARM", "WA…
+$ REF_CLASS  &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+$ DUPLICATE  &lt;chr&gt; "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N", "N",…
+$ GEAR       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ Ecobasin.x &lt;dbl&gt; 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 8,…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites, <span class="at">n=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   EventID STATUS REF_CLASS DUPLICATE  GEAR Ecobasin.x
+     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1    5618 WARM           3 N             0          8
+ 2    5620 WARM           3 N             0          8
+ 3    5624 WARM           3 N             0          8
+ 4    5628 WARM           3 N             0          8
+ 5    5632 WARM           3 N             0          8
+ 6    5638 WARM           3 N             0          8
+ 7    5640 WARM           3 N             0          8
+ 8    5644 WARM           3 N             0          8
+ 9    5646 WARM           3 N             0          8
+10    5648 WARM           3 N             0          8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  EventID STATUS REF_CLASS DUPLICATE  GEAR Ecobasin.x
+    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 3980038 WARM           3 Y             3         NA
+2 3980042 WARM           3 Y             3         NA
+3 3980050 WARM           3 Y             3         NA
+4 3980052 WARM           3 Y             3         NA
+5 3980062 WARM           3 Y             3         NA
+6 3980072 WARM           3 Y             3         NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use the $ to look at a single variable</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  EventID STATUS REF_CLASS DUPLICATE  GEAR Ecobasin.x
+    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1    5618 WARM           3 N             0          8
+2    5620 WARM           3 N             0          8
+3    5624 WARM           3 N             0          8
+4    5628 WARM           3 N             0          8
+5    5632 WARM           3 N             0          8
+6    5638 WARM           3 N             0          8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites<span class="sc">$</span>GEAR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites<span class="sc">$</span>STATUS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "WARM" "WARM" "WARM" "WARM" "WARM" "WARM"</code></pre>
+</div>
+</div>
+</section>
+<section id="r-objects" class="level2">
+<h2 class="anchored" data-anchor-id="r-objects">R objects</h2>
+<p>When examining the data, we saw that the column types were either</p>
+<ul>
+<li><p>chr</p></li>
+<li><p>dbl</p></li>
+<li><p>num</p></li>
+</ul>
+<p>R handles numeric data either as an integer or a double precision floating point number. You don’t really need to know this, but that is what dbl stands for.</p>
+<p>A <strong>string</strong> is a single <em>character</em> or a collection of <em>characters</em> inside single or double quotes. When you see something printed inside double quotes in your consul - that is a string.</p>
+<p>Categorical data is handled a bit differently. Categorical data in R are called Factors. Factors have a known and fixed set of values. e.g.&nbsp;Male/Female, or Stream/River/Lake. Factors are defined by you - you must tell R which columns, if any, you choose to be factors.</p>
+<p>There is a tidyverse package devoted to handling factors - forcats</p>
+<p>These are all vectors - which are lists of homogenous items (all text, all dates, all numbers, etc.)</p>
+<p>A <strong>list</strong>, on the other hand, is a collection of heterogenous items. It might be (a date, a function, a a matrix, and a picture of a smallmouth bass). Or not. You can read about lists sometime - and it might be important - particularly when writing functions - but for now, just know that they exist and when you see one, you’ll know one.</p>
+<p>There are a lot of details I am flying over so that we can just get to the nitty gritty of data analysis. There are mounds of minutia you will dig into eventually. But you don’t need to be a geologist to dig a ditch.</p>
+</section>
+<section id="column-names" class="level2">
+<h2 class="anchored" data-anchor-id="column-names">Column Names</h2>
+<ul>
+<li>Column names in R can be a problem if the creators of the input data (spreadsheet or csv) don’t follow reasonable rules like <strong><em>NO SPACES</em></strong>. Spaces anywhere can be a problem (for example - it is hard to tell the difference between a single and a double space).</li>
+</ul>
+<p>You can manually change these in the input file - but this is unnecessarily difficult sometimes. I will show a couple different methods for handling these.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#janitor is a package that is helpful when wrangling data.  A particularly helpful function is clean_names() </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(janitor)</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co">#notice how functions can be wrapped into another function</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co">#This is the same as any math problem.</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>(<span class="dv">5</span><span class="sc">+</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "SpeciesCode"  "FISH"         "RGS"          "GSS"          "LSR"         
+ [6] "NGL"          "RGS2"         "GSS2"         "LSR2"         "NGL2"        
+[11] "MO"           "IN"           "IP"           "IP2"          "IP SEAT"     
+[16] "Benthic"      "Benthic2"     "Benthic CACO" "Cottid"       "Cyprinid"    
+[21] "OH"           "OH2"          "DMS"          "DMS2"         "Tol"         
+[26] "Int"          "ModInt"       "Mod"          "ModTol"       "UnkTol"      
+[31] "Tol Benthic"  "Int Benthic"  "Tol Cyprinid" "Int Cyprinid" "Int RGS"     
+[36] "Int GSS"      "McC CGS"      "McC CGS2"     "CGS RGS"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#There may be times where you want to cut and paste variable names without quotes or as a list</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#This will print names without the quotes</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">noquote</span>(<span class="fu">names</span>(traits))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] SpeciesCode  FISH         RGS          GSS          LSR         
+ [6] NGL          RGS2         GSS2         LSR2         NGL2        
+[11] MO           IN           IP           IP2          IP SEAT     
+[16] Benthic      Benthic2     Benthic CACO Cottid       Cyprinid    
+[21] OH           OH2          DMS          DMS2         Tol         
+[26] Int          ModInt       Mod          ModTol       UnkTol      
+[31] Tol Benthic  Int Benthic  Tol Cyprinid Int Cyprinid Int RGS     
+[36] Int GSS      McC CGS      McC CGS2     CGS RGS     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This prints the whole mess as a list, each column name separated by a space</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">names</span>(traits)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SpeciesCode FISH RGS GSS LSR NGL RGS2 GSS2 LSR2 NGL2 MO IN IP IP2 IP SEAT Benthic Benthic2 Benthic CACO Cottid Cyprinid OH OH2 DMS DMS2 Tol Int ModInt Mod ModTol UnkTol Tol Benthic Int Benthic Tol Cyprinid Int Cyprinid Int RGS Int GSS McC CGS McC CGS2 CGS RGS</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This is gnarly to work with - leaving you guessing as to what gets a space and capitalized letters mixed with lower case</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#fshtrt$Native Mon #Will not Run...and note that the R Errors aren't going to tell you exactly what is wrong.</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#IF you absolutely need to or you only have one or two field names and you don't want to change your field names - you must use backquotes to indicate to R that this is all one name.</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(traits<span class="sc">$</span><span class="st">`</span><span class="at">Int Benthic</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#We can change any column name using base R colnames - but it is not very efficient for a large number of names</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#In base r,[ ] are used to select a subset - in this case a column position</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(traits)[<span class="dv">32</span>] <span class="ot">=</span><span class="st">"Int_Benthic"</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#This is unneccessarily clunky.</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co">#we can use dplyr rename to rename any number of columns using a straightforward syntax of NewName=OldName,...</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co">#and always remember, in R - you can overwrite an existing dataframe as above, or you can make a new dataframe with the changes (this would be similar to save or save as in a spreadsheet)</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>traits1 <span class="ot">&lt;-</span> <span class="fu">rename</span>(traits,<span class="at">Tol_Benthic=</span><span class="st">`</span><span class="at">Tol Benthic</span><span class="st">`</span>,<span class="at">CGS_RGS=</span><span class="st">`</span><span class="at">CGS RGS</span><span class="st">`</span>)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>traits <span class="ot">&lt;-</span> <span class="fu">rename</span>(traits,<span class="at">Tol_Benthic=</span><span class="st">`</span><span class="at">Tol Benthic</span><span class="st">`</span>,<span class="at">CGS_RGS=</span><span class="st">`</span><span class="at">CGS RGS</span><span class="st">`</span>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="co"># The janitor package can fix these crappy names easily with clean_names</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>traits2 <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(traits)</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="co">#You can see that the original is the same and your new file has a different name and better column names.</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "species_code" "fish"         "rgs"          "gss"          "lsr"         
+ [6] "ngl"          "rgs2"         "gss2"         "lsr2"         "ngl2"        
+[11] "mo"           "in"           "ip"           "ip2"          "ip_seat"     
+[16] "benthic"      "benthic2"     "benthic_caco" "cottid"       "cyprinid"    
+[21] "oh"           "oh2"          "dms"          "dms2"         "tol"         
+[26] "int"          "mod_int"      "mod"          "mod_tol"      "unk_tol"     
+[31] "tol_benthic"  "int_benthic"  "tol_cyprinid" "int_cyprinid" "int_rgs"     
+[36] "int_gss"      "mc_c_cgs"     "mc_c_cgs2"    "cgs_rgs"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read_excel also has a built in function that repairs crappy names</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>traits3 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data.xlsx"</span>,<span class="st">"TraitsTable"</span>, <span class="at">.name_repair =</span> <span class="st">"universal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `IP SEAT` -&gt; `IP.SEAT`
+• `Benthic CACO` -&gt; `Benthic.CACO`
+• `Tol Benthic` -&gt; `Tol.Benthic`
+• `Int Benthic` -&gt; `Int.Benthic`
+• `Tol Cyprinid` -&gt; `Tol.Cyprinid`
+• `Int Cyprinid` -&gt; `Int.Cyprinid`
+• `Int RGS` -&gt; `Int.RGS`
+• `Int GSS` -&gt; `Int.GSS`
+• `McC CGS` -&gt; `McC.CGS`
+• `McC CGS2` -&gt; `McC.CGS2`
+• `CGS RGS` -&gt; `CGS.RGS`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check how many NAs there are in the a dataframe</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(sites))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Which rows contain them?</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>sitesNA <span class="ot">&lt;-</span> sites[<span class="sc">!</span><span class="fu">complete.cases</span>(sites), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After break we will learn a few basic functions in dplyr.</p>
+</section>
+<section id="break" class="level2">
+<h2 class="anchored" data-anchor-id="break">Break</h2>
+<ul>
+<li>be back in 10 min.</li>
+</ul>
+</section>
+<section id="looking-at-data" class="level2">
+<h2 class="anchored" data-anchor-id="looking-at-data">Looking at data</h2>
+<p>Use the pipe operator <strong>%&gt;%</strong></p>
+<p>to string together lines of code</p>
+<ul>
+<li><p><strong><em>Subset</em></strong></p></li>
+<li><p><strong><em>Sort</em></strong></p></li>
+</ul>
+</section>
+<section id="subsetting" class="level2">
+<h2 class="anchored" data-anchor-id="subsetting">Subsetting</h2>
+<ul>
+<li><p>These are very simple examples of subsets of dataframes.</p></li>
+<li><p>One can subset all manner of things - like matricies, lists, and vectors. Each of these requires special handling and is not the subject of this class. For more on advanced Subsetting:</p>
+<p>https://adv-r.hadley.nz/subsetting.html</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make new dataframes that are subsets of the original</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Base R can be used to subset rows,columns , or both.  You will see a lot of code out there using base R for this and it will be in this form [Rows,Cols]</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>sites2 <span class="ot">&lt;-</span> sites[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>sites2<span class="fl">.1</span> <span class="ot">&lt;-</span> sites[,<span class="fu">c</span>(<span class="st">"EventID"</span>,<span class="st">"DUPLICATE"</span>,<span class="st">"GEAR"</span>)]</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>sites3 <span class="ot">&lt;-</span> sites[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,]</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>sites3<span class="fl">.1</span> <span class="ot">&lt;-</span> sites[sites<span class="sc">$</span>GEAR<span class="sc">==</span><span class="dv">3</span>,]</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>sites4 <span class="ot">&lt;-</span> sites[sites<span class="sc">$</span>GEAR<span class="sc">==</span><span class="dv">3</span>,<span class="fu">c</span>(<span class="st">"EventID"</span>,<span class="st">"DUPLICATE"</span>,<span class="st">"GEAR"</span>)]</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co">#subset() from base R can also be used similarly</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>sites2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(sites,<span class="at">select=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>sites2<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">subset</span>(sites,<span class="at">select=</span><span class="fu">c</span>(<span class="st">"EventID"</span>,<span class="st">"GEAR"</span>,<span class="st">"Ecobasin.x"</span>))</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>sites3<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">subset</span>(sites,GEAR<span class="sc">==</span><span class="dv">3</span>) </span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>sites4<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">subset</span>(sites,GEAR<span class="sc">==</span><span class="dv">3</span>, <span class="at">select=</span><span class="fu">c</span>(<span class="st">"EventID"</span>,<span class="st">"GEAR"</span>,<span class="st">"Ecobasin.x"</span>))</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="co">#To simplify code writing, the magrittr package brought us the pipe operator</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Practice using "pipes":  "%&gt;%"  </span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="co">#shortcut with (Ctrl+Shift+M)</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="co"># %&gt;% can be roughly translated as "then"</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>sites4<span class="fl">.2</span> <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span> </span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(GEAR<span class="sc">==</span><span class="dv">3</span>,<span class="at">select=</span><span class="fu">c</span>(<span class="st">"EventID"</span>,<span class="st">"GEAR"</span>,<span class="st">"Ecobasin.x"</span>))</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Another option is to use dplyr's select and filter</span></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>sites4<span class="fl">.3</span> <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(EventID, GEAR, Ecobasin.x) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GEAR<span class="sc">==</span><span class="dv">3</span>)</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="co">#dplyr syntax will allow you to clearly combine different functions into somehthing you can follow</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a><span class="co">#rename can also be combined with the select function (NewName=OldName)</span></span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>sites4<span class="fl">.3</span> <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(EventID, GEAR, <span class="at">ebasin=</span>Ecobasin.x) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GEAR<span class="sc">==</span><span class="dv">3</span>)</span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="co">#Boolean operators also work with all of these methods</span></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that once I change the name of Ecobasin.x in line 2, I need to use that new name in line 3</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>sites4<span class="fl">.31</span> <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span></span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(EventID, DUPLICATE, GEAR, <span class="at">ebasin=</span>Ecobasin.x) <span class="sc">%&gt;%</span>   <span class="fu">filter</span>(GEAR<span class="sc">==</span><span class="dv">3</span><span class="sc">&amp;</span>ebasin<span class="sc">==</span><span class="dv">5</span>) </span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter for a group</span></span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="co">#This will select the traits for these three species</span></span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>traits2 <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span></span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SpeciesCode <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"MISA"</span>,<span class="st">"MIDO"</span>,<span class="st">"AMRU"</span>))</span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a>traits2<span class="fl">.1</span> <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span> </span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(SpeciesCode,<span class="st">"NO"</span>))</span>
+<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a>traits2<span class="fl">.2</span> <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span> </span>
+<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(SpeciesCode,<span class="st">"^NO"</span>))</span>
+<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a><span class="co">#Remember the previous chunk where we used base R to subset those rows that contained NA values (by subsetting those rows that did not have complete cases).  You would write that in dplyr like the following </span></span>
+<span id="cb52-59"><a href="#cb52-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-60"><a href="#cb52-60" aria-hidden="true" tabindex="-1"></a>sitesNA2 <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span> </span>
+<span id="cb52-61"><a href="#cb52-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">complete.cases</span>(sites))</span>
+<span id="cb52-62"><a href="#cb52-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-63"><a href="#cb52-63" aria-hidden="true" tabindex="-1"></a><span class="co">#What to actually do with NA?  Most of the time you don't need to do anything.  Sometimes you might decide that replacing NA with 0 is appropriate.  Or, you might want to replace NA with "unknown", for example</span></span>
+<span id="cb52-64"><a href="#cb52-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-65"><a href="#cb52-65" aria-hidden="true" tabindex="-1"></a>sites <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span> </span>
+<span id="cb52-66"><a href="#cb52-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">Ecobasin.x=</span><span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sort" class="level2">
+<h2 class="anchored" data-anchor-id="sort">Sort</h2>
+<p>Use the dplyr arrange function to sort rows.</p>
+<p>Use dplyr select if you want the columns in a specific order</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#For a single variable at a time, this can also be done easily in the viewer within R Studio - open the table and hit the up/down arrows for each column.</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Re-order columns using dplyr select</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">#note the use of the helper everything()</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co">#For sorting rows by multiple columns, use Arrange.</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Use desc to reverse the order</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>sites <span class="ot">&lt;-</span> sites <span class="sc">%&gt;%</span> </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(EventID,DUPLICATE,REF_CLASS,<span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Ecobasin.x,REF_CLASS,STATUS,<span class="fu">desc</span>(GEAR))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,330 @@
+---
+title: "Module 2 - getting and cleaning data"
+author: "Lou Reynolds - EPA Region 3"
+format: html
+editor: visual
+---
+
+## Setup
+
+A number of packages are collected under the library "tidyverse". These packages are very useful in data management and use a straightforward language that some find easier to follow than base R code.
+
+It is also possible to do anything you might want to do in R using base R language - these are the functions that come packaged with the R installation itself.
+
+I will demonstrate most of this module using the tidyverse and I will try to show you how some of this might differ from base R.
+
+```{r setup,echo=TRUE}
+
+#It is good practice to load all libraries in a chunk at the beginning of your workflow (code).
+library("tidyverse")
+library("readxl")
+library(writexl)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+
+#Here you will set your working directory.  
+setwd("C:/Users/Lreynold/OneDrive - Environmental Protection Agency (EPA)/Desktop/Rbasics")
+
+
+```
+
+## Reading data into the R environment
+
+When you bring data into R it is stored as a dataframe. There are other objects in R such as matricies, vectors, and lists. As most people are familiar with the structure of a dataframe (it is very much similar to a spreadsheet in structure) we will work with that.
+
+-   There are many ways to get data into the R environment depending upon what format your data is in and if you will use a package or base R to load it.
+
+-   readxl is a package that reads in data from an excel file.
+
+    -   https://readxl.tidyverse.org/
+
+-   read_csv is a function in the readr library that loads csv files
+
+    -   https://readr.tidyverse.org/
+
+-   read.csv is a function in base R that loads csv files
+
+Basics - to review from the previous module
+
+-   In R, the left side of the \<- or = is what you name the output - to the right are the operations and/or the input.
+
+-   You may use \<- or =
+
+-   read_csv will bring in csv files (you can usually find a way to bring in a data file).
+
+```{r data,echo=TRUE}
+
+##Read in Raw data  
+#readxl is a package that reads in data from an excel file. 
+
+#Show the names of the sheets in a workbook 
+excel_sheets("Data.xlsx") 
+
+#You can also use the position of the sheet
+cts = read_excel("Data.xlsx",2)  
+
+#Or the title of the sheet
+cts <- read_excel("Data.xlsx","Fish")
+
+sites <-read_excel("Data.xlsx","Sites")  
+traits <- read_excel("Data.xlsx","TraitsTable")  
+
+traitsdf <- read.csv("FishTraits.csv")
+
+#and sure - R does plain old math too 
+5+6
+```
+
+## dataframes
+
+From the R Documentation of data.frame - A dataframe (or data frame, you will see both forms of spelling) is a list of variables of the same number of rows with unique row names, given class `"data.frame"`. If no variables are included, the row names determine the number of rows.
+
+Data that the tidyverse brings into R comes in as a tibble. A tibble differs from a dataframe in that (from https://tibble.tidyverse.org/index.html)
+
+-   it never changes the type of the inputs (e.g. it keeps list columns unchanged, and never converts strings to factors!),
+
+-   it never changes the names of variables, it only recycles inputs of length 1
+
+-   it never creates row.names().
+
+If you want a deeper dive into this just go to the vignette:
+
+https://tibble.tidyverse.org/articles/tibble.html
+
+I work with tibbles all the time - your use case may differ. I just want to call your attention to the differences.
+
+```{r}
+
+#A tibble is a dataframe but a dataframe is not a tibble
+is.data.frame(traits)
+is_tibble(traitsdf)
+
+#I will use the terms interchangeably as any of these functions will work with tibbles and dataframes 
+
+
+```
+
+## Examining a Dataframe
+
+```{r, echo=TRUE}
+#There are many ways to examine a dataframe in R.
+
+dim(sites)
+str(sites)
+names(sites)
+head(sites)
+glimpse(sites)
+head(sites, n=10)
+tail(sites)
+
+#use the $ to look at a single variable
+head(sites)
+head(sites$GEAR)
+head(sites$STATUS)
+```
+
+## R objects
+
+When examining the data, we saw that the column types were either
+
+-   chr
+
+-   dbl
+
+-   num
+
+R handles numeric data either as an integer or a double precision floating point number. You don't really need to know this, but that is what dbl stands for.
+
+A **string** is a single *character* or a collection of *characters* inside single or double quotes. When you see something printed inside double quotes in your consul - that is a string.
+
+Categorical data is handled a bit differently. Categorical data in R are called Factors. Factors have a known and fixed set of values. e.g. Male/Female, or Stream/River/Lake. Factors are defined by you - you must tell R which columns, if any, you choose to be factors.
+
+There is a tidyverse package devoted to handling factors - forcats
+
+These are all vectors - which are lists of homogenous items (all text, all dates, all numbers, etc.)
+
+A **list**, on the other hand, is a collection of heterogenous items. It might be (a date, a function, a a matrix, and a picture of a smallmouth bass). Or not. You can read about lists sometime - and it might be important - particularly when writing functions - but for now, just know that they exist and when you see one, you'll know one.
+
+There are a lot of details I am flying over so that we can just get to the nitty gritty of data analysis. There are mounds of minutia you will dig into eventually. But you don't need to be a geologist to dig a ditch.
+
+## Column Names
+
+-   Column names in R can be a problem if the creators of the input data (spreadsheet or csv) don't follow reasonable rules like ***NO SPACES***. Spaces anywhere can be a problem (for example - it is hard to tell the difference between a single and a double space).
+
+You can manually change these in the input file - but this is unnecessarily difficult sometimes. I will show a couple different methods for handling these.
+
+```{r, echo=TRUE}
+
+#janitor is a package that is helpful when wrangling data.  A particularly helpful function is clean_names() 
+#install.packages(janitor)
+library(janitor)
+
+#notice how functions can be wrapped into another function
+#This is the same as any math problem.
+2*(5+6)
+
+names(traits)
+
+#There may be times where you want to cut and paste variable names without quotes or as a list
+#This will print names without the quotes
+noquote(names(traits))
+#This prints the whole mess as a list, each column name separated by a space
+cat(names(traits)) 
+
+#This is gnarly to work with - leaving you guessing as to what gets a space and capitalized letters mixed with lower case
+
+#fshtrt$Native Mon #Will not Run...and note that the R Errors aren't going to tell you exactly what is wrong.
+
+#IF you absolutely need to or you only have one or two field names and you don't want to change your field names - you must use backquotes to indicate to R that this is all one name.
+
+head(traits$`Int Benthic`)
+
+#We can change any column name using base R colnames - but it is not very efficient for a large number of names
+
+#In base r,[ ] are used to select a subset - in this case a column position
+colnames(traits)[32] ="Int_Benthic"
+
+#This is unneccessarily clunky.
+
+#we can use dplyr rename to rename any number of columns using a straightforward syntax of NewName=OldName,...
+
+#and always remember, in R - you can overwrite an existing dataframe as above, or you can make a new dataframe with the changes (this would be similar to save or save as in a spreadsheet)
+
+traits1 <- rename(traits,Tol_Benthic=`Tol Benthic`,CGS_RGS=`CGS RGS`)
+
+traits <- rename(traits,Tol_Benthic=`Tol Benthic`,CGS_RGS=`CGS RGS`)
+
+# The janitor package can fix these crappy names easily with clean_names
+
+traits2 <- clean_names(traits)
+
+#You can see that the original is the same and your new file has a different name and better column names.
+names(traits2)
+
+#read_excel also has a built in function that repairs crappy names
+
+traits3 <- read_excel("Data.xlsx","TraitsTable", .name_repair = "universal")
+
+#Check how many NAs there are in the a dataframe
+sum(is.na(sites))
+
+#Which rows contain them?
+sitesNA <- sites[!complete.cases(sites), ]
+```
+
+After break we will learn a few basic functions in dplyr.
+
+## Break
+
+-   be back in 10 min.
+
+## Looking at data
+
+Use the pipe operator **%\>%**
+
+to string together lines of code
+
+-   ***Subset***
+
+-   ***Sort***
+
+## Subsetting
+
+-   These are very simple examples of subsets of dataframes.
+
+-   One can subset all manner of things - like matricies, lists, and vectors. Each of these requires special handling and is not the subject of this class. For more on advanced Subsetting:
+
+    https://adv-r.hadley.nz/subsetting.html
+
+```{r, echo=TRUE}
+
+#make new dataframes that are subsets of the original
+
+#Base R can be used to subset rows,columns , or both.  You will see a lot of code out there using base R for this and it will be in this form [Rows,Cols]
+sites2 <- sites[,1:3]
+sites2.1 <- sites[,c("EventID","DUPLICATE","GEAR")]
+sites3 <- sites[1:3,]
+sites3.1 <- sites[sites$GEAR==3,]
+sites4 <- sites[sites$GEAR==3,c("EventID","DUPLICATE","GEAR")]
+
+#subset() from base R can also be used similarly
+
+sites2 <- subset(sites,select=1:3)
+sites2.1 <- subset(sites,select=c("EventID","GEAR","Ecobasin.x"))
+sites3.2 <- subset(sites,GEAR==3) 
+sites4.1 <- subset(sites,GEAR==3, select=c("EventID","GEAR","Ecobasin.x"))
+
+#To simplify code writing, the magrittr package brought us the pipe operator
+
+#Practice using "pipes":  "%>%"  
+#shortcut with (Ctrl+Shift+M)
+# %>% can be roughly translated as "then"
+
+sites4.2 <- sites %>% 
+  subset(GEAR==3,select=c("EventID","GEAR","Ecobasin.x"))
+
+#Another option is to use dplyr's select and filter
+    
+sites4.3 <- sites %>%
+  select(EventID, GEAR, Ecobasin.x) %>% 
+  filter(GEAR==3)
+
+#dplyr syntax will allow you to clearly combine different functions into somehthing you can follow
+
+#rename can also be combined with the select function (NewName=OldName)
+
+sites4.3 <- sites %>%
+  select(EventID, GEAR, ebasin=Ecobasin.x) %>% 
+  filter(GEAR==3)
+
+#Boolean operators also work with all of these methods
+#Note that once I change the name of Ecobasin.x in line 2, I need to use that new name in line 3
+
+sites4.31 <- sites %>%
+  select(EventID, DUPLICATE, GEAR, ebasin=Ecobasin.x) %>%   filter(GEAR==3&ebasin==5) 
+
+#Filter for a group
+#This will select the traits for these three species
+    
+traits2 <- traits %>%
+  filter(SpeciesCode %in% c("MISA","MIDO","AMRU"))
+
+traits2.1 <- traits %>% 
+  filter(str_detect(SpeciesCode,"NO"))
+
+traits2.2 <- traits %>% 
+  filter(str_detect(SpeciesCode,"^NO"))
+
+#Remember the previous chunk where we used base R to subset those rows that contained NA values (by subsetting those rows that did not have complete cases).  You would write that in dplyr like the following 
+
+sitesNA2 <- sites %>% 
+  filter(!complete.cases(sites))
+
+#What to actually do with NA?  Most of the time you don't need to do anything.  Sometimes you might decide that replacing NA with 0 is appropriate.  Or, you might want to replace NA with "unknown", for example
+
+sites <- sites %>% 
+  replace_na(list(Ecobasin.x=99))
+
+```
+
+## Sort
+
+Use the dplyr arrange function to sort rows.
+
+Use dplyr select if you want the columns in a specific order
+
+```{r, echo=TRUE}
+
+#For a single variable at a time, this can also be done easily in the viewer within R Studio - open the table and hit the up/down arrows for each column.
+
+#Re-order columns using dplyr select
+#note the use of the helper everything()
+#For sorting rows by multiple columns, use Arrange.
+#Use desc to reverse the order
+
+sites <- sites %>% 
+  select(EventID,DUPLICATE,REF_CLASS,everything()) %>% 
+  arrange(Ecobasin.x,REF_CLASS,STATUS,desc(GEAR))
+
+
+```

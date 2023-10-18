@@ -41,7 +41,7 @@ n <-
   
   
   
-  ################################################################################################################
+################################################################################################################
 #### STOP!- We will return to the main session. We will have time to complete the problems below at the end ####
 ################################################################################################################
 
@@ -73,6 +73,6 @@ n <-
 
 # 16. Look at head() of "infert" to familiarize yourself with the data. Talk with your group on what each column means
 
-# 17. What is the class( ) of infert$?
+# 17. What is the class( ) of infert?
 
-# 18. How many different age groups are in infert$education? (Hint- use levels()) 
+# 18. How many different age groups are in infert$education? (Hint- use levels())
