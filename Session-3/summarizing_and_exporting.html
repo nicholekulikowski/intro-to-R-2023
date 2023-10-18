@@ -499,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ct_trait<span class="sc">&gt;</span><span class="dv">0</span>)</span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># We might want to rename the traits to more compact names</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use the revalue function to do this</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use the revalue function from the plyr package to do this</span></span>
 <span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>match_3 <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
 <span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">revalue</span>(trait, <span class="fu">c</span>(<span class="st">'Benthic'</span> <span class="ot">=</span> <span class="st">'BENT'</span>,</span>
 <span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cyprinid'</span> <span class="ot">=</span> <span class="st">'CYPR'</span>,</span>
@@ -619,7 +619,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [16] "COTTID_SUM"   "COTTID_PROP" </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>met_out <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(met_2_wide, <span class="at">cols =</span> TOTAL<span class="sc">:</span>COTTID_PROP, </span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">'Metric'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">'Metric'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, Metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save." class="level4">
 <h4 class="anchored" data-anchor-id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save.">Now we can save that data frame to a .csv - this is the simplest way to save.</h4>
@@ -634,13 +635,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>fish_mets <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics.csv"</span>)</span>
 <span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  X EventID    Metric Value
-1 1    5618     TOTAL 105.0
-2 2    5618 BENT_NTAX  12.0
-3 3    5618  BENT_SUM  42.0
-4 4    5618 BENT_PROP   0.4
-5 5    5618 CYPR_NTAX   4.0
-6 6    5618  CYPR_SUM  31.0</code></pre>
+<pre><code>  X EventID      Metric Value
+1 1    5618   BENT_NTAX  12.0
+2 2    5618   BENT_PROP   0.4
+3 3    5618    BENT_SUM  42.0
+4 4    5618 COTTID_NTAX   0.0
+5 5    5618 COTTID_PROP   0.0
+6 6    5618  COTTID_SUM   0.0</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics_noRowNames.csv"</span>, <span class="at">row.names=</span>F)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we read this file back in and note that it is a bit cleaner without that </span></span>
@@ -648,13 +649,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>fish_mets_noRowNames <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics_noRowNames.csv"</span>)</span>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets_noRowNames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  EventID    Metric Value
-1    5618     TOTAL 105.0
-2    5618 BENT_NTAX  12.0
-3    5618  BENT_SUM  42.0
-4    5618 BENT_PROP   0.4
-5    5618 CYPR_NTAX   4.0
-6    5618  CYPR_SUM  31.0</code></pre>
+<pre><code>  EventID      Metric Value
+1    5618   BENT_NTAX  12.0
+2    5618   BENT_PROP   0.4
+3    5618    BENT_SUM  42.0
+4    5618 COTTID_NTAX   0.0
+5    5618 COTTID_PROP   0.0
+6    5618  COTTID_SUM   0.0</code></pre>
 </div>
 </div>
 </section>

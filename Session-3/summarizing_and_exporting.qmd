@@ -210,7 +210,7 @@ match_2 <- match_1 %>%
   filter(ct_trait>0)
 
 # We might want to rename the traits to more compact names
-# We can use the revalue function to do this
+# We can use the revalue function from the plyr package to do this
 match_3 <- match_2 %>%
   mutate(trait_short = revalue(trait, c('Benthic' = 'BENT',
                                         'Cyprinid' = 'CYPR',
@@ -312,7 +312,8 @@ names(met_2_wide)
 names(met_2_wide)
 
 met_out <- pivot_longer(met_2_wide, cols = TOTAL:COTTID_PROP, 
-                        names_to = 'Metric', values_to = 'Value')
+                        names_to = 'Metric', values_to = 'Value') %>%
+  arrange(EventID, Metric)
 
 
 ```
