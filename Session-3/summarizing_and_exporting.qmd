@@ -66,6 +66,14 @@ sites <- read_excel("Data.xlsx","Sites")
 # Using the .name_repair argument ensures that any names with spaces or symbols are "fixed" by replacing with '.'
 traits <- read_excel("Data.xlsx", "TraitsTable", .name_repair = "universal")  
 
+traits.1 <- read_csv("FishTraits.csv")
+names(traits.1)
+
+traits.2 <- read.csv("FishTraits.csv")
+names(traits.2)
+
+rm(trait.2)
+
 ```
 
 ## 2. Wrangling - pivots, joins, mutate and summarize {.scrollable}
@@ -99,7 +107,7 @@ traits_long <- traits %>%
 
 #you can choose to tell pivot what not to include instead of what to include
 cts_long <- cts %>% 
-  pivot_longer(cols = ALCH:THRH, names_to="SpeciesCode", values_to="count") %>%
+  pivot_longer(cols = -EventID, names_to="SpeciesCode", values_to="count") %>%
   arrange(EventID, SpeciesCode)
 ```
 

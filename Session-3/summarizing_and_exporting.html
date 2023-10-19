@@ -143,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is good practice to load all libraries in a chunk at the beginning of your workflow (code).</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'plyr' was built under R version 4.2.2</code></pre>
+<pre><code>Warning: package 'plyr' was built under R version 4.2.3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -324,6 +324,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 • `McC CGS2` -&gt; `McC.CGS2`
 • `CGS RGS` -&gt; `CGS.RGS`</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>traits<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"FishTraits.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 170 Columns: 117
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (1): Species Code
+dbl (116): FISH, Fish2, Native Potomac, Native Mon, Native Ohio, Native UK, ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Species Code"             "FISH"                    
+  [3] "Fish2"                    "Native Potomac"          
+  [5] "Native Mon"               "Native Ohio"             
+  [7] "Native UK"                "Native Potomac2"         
+  [9] "Native Mon2"              "Native Ohio2"            
+ [11] "Native UK2"               "Game"                    
+ [13] "RGS"                      "GSS"                     
+ [15] "LSR"                      "NGL"                     
+ [17] "RGS2"                     "GSS2"                    
+ [19] "LSR2"                     "NGL2"                    
+ [21] "MO"                       "IN"                      
+ [23] "IP"                       "IP2"                     
+ [25] "IP SEAT"                  "Benthic"                 
+ [27] "Benthic2"                 "Benthic CACO"            
+ [29] "Cottid"                   "Cyprinid"                
+ [31] "Cyprinid BNDSEAT"         "Cyprinid2"               
+ [33] "Cyprinid NPotomac"        "Cyprinid NPotomac2"      
+ [35] "Cyprinid NPotomacBNDSEAT" "Cyprinid NMon"           
+ [37] "Cyprinid NMon2"           "Cyprinid NMonBNDSEAT"    
+ [39] "Cyprinid NOhio"           "Cyprinid NOhio2"         
+ [41] "Cyprinid NOhioBNDSEAT"    "Cyprinid UK"             
+ [43] "Cyprinid NUK2"            "Cyprinid NUKBNDSEAT"     
+ [45] "BND CACO SEAT"            "OH"                      
+ [47] "OH2"                      "OH CAAN"                 
+ [49] "OH CAAN CACO"             "Cold"                    
+ [51] "Cold SATR ONMY"           "Cold2"                   
+ [53] "GameC"                    "Game2"                   
+ [55] "OH NG"                    "IP BenthicNG"            
+ [57] "IP NonGameNB"             "DMS"                     
+ [59] "DMS2"                     "Tol"                     
+ [61] "Int"                      "ModInt"                  
+ [63] "Mod"                      "ModTol"                  
+ [65] "UnkTol"                   "Tol Benthic"             
+ [67] "Int Benthic"              "Tol Cyprinid"            
+ [69] "Int Cyprinid"             "Int RGS"                 
+ [71] "Int GSS"                  "Int LSR"                 
+ [73] "Int NGL"                  "Percidae"                
+ [75] "Sunfish"                  "Catfish"                 
+ [77] "Catostomidae"             "McC CGS"                 
+ [79] "McC CGS2"                 "CGS RGS"                 
+ [81] "CGS RGS2"                 "CavitySpawn"             
+ [83] "CavitySpawn2"             "Fish2 DEP"               
+ [85] "Native Potomac2 DEP"      "Native Mon2 DEP"         
+ [87] "Native Ohio2 DEP"         "Native UK2 DEP"          
+ [89] "RGS2 DEP"                 "GSS2 DEP"                
+ [91] "LSR2 DEP"                 "NGL2 DEP"                
+ [93] "IP2 DEP"                  "Benthic2 DEP"            
+ [95] "Cyprinid2 DEP"            "Cyprinid NPotomac2 DEP"  
+ [97] "Cyprinid NMon2 DEP"       "Cyprinid NOhio2 DEP"     
+ [99] "Cyprinid NUK2 DEP"        "OH2 DEP"                 
+[101] "Cold2 DEP"                "Game2 DEP"               
+[103] "DMS2 DEP"                 "Tol DEP"                 
+[105] "Mod DEP"                  "Int DEP"                 
+[107] "Tol Benthic DEP"          "Int Benthic DEP"         
+[109] "Tol Cyprinid DEP"         "Int Cyprinid DEP"        
+[111] "Int RGS DEP"              "Int GSS DEP"             
+[113] "Int LSR DEP"              "Int NGL DEP"             
+[115] "McC CGS2 DEP"             "CGS RGS2 DEP"            
+[117] "CavitySpawn2 DEP"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>traits<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"FishTraits.csv"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(traits<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Species.Code"             "FISH"                    
+  [3] "Fish2"                    "Native.Potomac"          
+  [5] "Native.Mon"               "Native.Ohio"             
+  [7] "Native.UK"                "Native.Potomac2"         
+  [9] "Native.Mon2"              "Native.Ohio2"            
+ [11] "Native.UK2"               "Game"                    
+ [13] "RGS"                      "GSS"                     
+ [15] "LSR"                      "NGL"                     
+ [17] "RGS2"                     "GSS2"                    
+ [19] "LSR2"                     "NGL2"                    
+ [21] "MO"                       "IN"                      
+ [23] "IP"                       "IP2"                     
+ [25] "IP.SEAT"                  "Benthic"                 
+ [27] "Benthic2"                 "Benthic.CACO"            
+ [29] "Cottid"                   "Cyprinid"                
+ [31] "Cyprinid.BNDSEAT"         "Cyprinid2"               
+ [33] "Cyprinid.NPotomac"        "Cyprinid.NPotomac2"      
+ [35] "Cyprinid.NPotomacBNDSEAT" "Cyprinid.NMon"           
+ [37] "Cyprinid.NMon2"           "Cyprinid.NMonBNDSEAT"    
+ [39] "Cyprinid.NOhio"           "Cyprinid.NOhio2"         
+ [41] "Cyprinid.NOhioBNDSEAT"    "Cyprinid.UK"             
+ [43] "Cyprinid.NUK2"            "Cyprinid.NUKBNDSEAT"     
+ [45] "BND.CACO.SEAT"            "OH"                      
+ [47] "OH2"                      "OH.CAAN"                 
+ [49] "OH.CAAN.CACO"             "Cold"                    
+ [51] "Cold.SATR.ONMY"           "Cold2"                   
+ [53] "GameC"                    "Game2"                   
+ [55] "OH.NG"                    "IP.BenthicNG"            
+ [57] "IP.NonGameNB"             "DMS"                     
+ [59] "DMS2"                     "Tol"                     
+ [61] "Int"                      "ModInt"                  
+ [63] "Mod"                      "ModTol"                  
+ [65] "UnkTol"                   "Tol.Benthic"             
+ [67] "Int.Benthic"              "Tol.Cyprinid"            
+ [69] "Int.Cyprinid"             "Int.RGS"                 
+ [71] "Int.GSS"                  "Int.LSR"                 
+ [73] "Int.NGL"                  "Percidae"                
+ [75] "Sunfish"                  "Catfish"                 
+ [77] "Catostomidae"             "McC.CGS"                 
+ [79] "McC.CGS2"                 "CGS.RGS"                 
+ [81] "CGS.RGS2"                 "CavitySpawn"             
+ [83] "CavitySpawn2"             "Fish2.DEP"               
+ [85] "Native.Potomac2.DEP"      "Native.Mon2.DEP"         
+ [87] "Native.Ohio2.DEP"         "Native.UK2.DEP"          
+ [89] "RGS2.DEP"                 "GSS2.DEP"                
+ [91] "LSR2.DEP"                 "NGL2.DEP"                
+ [93] "IP2.DEP"                  "Benthic2.DEP"            
+ [95] "Cyprinid2.DEP"            "Cyprinid.NPotomac2.DEP"  
+ [97] "Cyprinid.NMon2.DEP"       "Cyprinid.NOhio2.DEP"     
+ [99] "Cyprinid.NUK2.DEP"        "OH2.DEP"                 
+[101] "Cold2.DEP"                "Game2.DEP"               
+[103] "DMS2.DEP"                 "Tol.DEP"                 
+[105] "Mod.DEP"                  "Int.DEP"                 
+[107] "Tol.Benthic.DEP"          "Int.Benthic.DEP"         
+[109] "Tol.Cyprinid.DEP"         "Int.Cyprinid.DEP"        
+[111] "Int.RGS.DEP"              "Int.GSS.DEP"             
+[113] "Int.LSR.DEP"              "Int.NGL.DEP"             
+[115] "McC.CGS2.DEP"             "CGS.RGS2.DEP"            
+[117] "CavitySpawn2.DEP"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(trait<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in rm(trait.2): object 'trait.2' not found</code></pre>
+</div>
 </div>
 </section>
 <section id="wrangling---pivots-joins-mutate-and-summarize" class="level2 scrollable">
@@ -342,16 +482,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data or tibbles come in two forms - <em>long</em> and <em>wide</em></p>
 <p>All of the tibbles currently in our R environment are in wide format.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot traits and fish data into long format</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note how single and double quotes can be used in R - no difference</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>traits_long <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">39</span>, <span class="at">names_to =</span><span class="st">'trait'</span>,<span class="at">values_to =</span><span class="st">'traitvalue'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SpeciesCode, trait)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#you can choose to tell pivot what not to include instead of what to include</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>cts_long <span class="ot">&lt;-</span> cts <span class="sc">%&gt;%</span> </span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> ALCH<span class="sc">:</span>THRH, <span class="at">names_to=</span><span class="st">"SpeciesCode"</span>, <span class="at">values_to=</span><span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, SpeciesCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot traits and fish data into long format</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note how single and double quotes can be used in R - no difference</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>traits_long <span class="ot">&lt;-</span> traits <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">39</span>, <span class="at">names_to =</span><span class="st">'trait'</span>,<span class="at">values_to =</span><span class="st">'traitvalue'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(SpeciesCode, trait)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">#you can choose to tell pivot what not to include instead of what to include</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>cts_long <span class="ot">&lt;-</span> cts <span class="sc">%&gt;%</span> </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>EventID, <span class="at">names_to=</span><span class="st">"SpeciesCode"</span>, <span class="at">values_to=</span><span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, SpeciesCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="handling-nas" class="level3 scrollable">
@@ -362,25 +502,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>You can replace NAs with values but these replacements must be consistent with the data format of the column.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(cts_long)) <span class="co"># count number of NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(cts_long)) <span class="co"># count number of NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(traits_long))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(traits_long))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Next we delete cases where there are 0 fish of a given species </span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cts_long2 <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(count<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If we take this long data frame and pivot wide again, there will be NAs where we removed 0 values</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>cts_wide2 <span class="ot">&lt;-</span> cts_long2 <span class="sc">%&gt;%</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> EventID, <span class="at">names_from=</span><span class="st">'SpeciesCode'</span>, <span class="at">values_from=</span><span class="st">'count'</span>) </span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Next we delete cases where there are 0 fish of a given species </span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>cts_long2 <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(count<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If we take this long data frame and pivot wide again, there will be NAs where we removed 0 values</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>cts_wide2 <span class="ot">&lt;-</span> cts_long2 <span class="sc">%&gt;%</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> EventID, <span class="at">names_from=</span><span class="st">'SpeciesCode'</span>, <span class="at">values_from=</span><span class="st">'count'</span>) </span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 100
   EventID  AMRU  CAAN  CACO  ETBL  ETFL  ETNI  ETVA  ICPU  LECY  LEMA  LEME
@@ -399,10 +539,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   MIME &lt;dbl&gt;, LAAP &lt;dbl&gt;, LEOS &lt;dbl&gt;, NOVO &lt;dbl&gt;, ONMY &lt;dbl&gt;, LYUM &lt;dbl&gt;,
 #   MOAN &lt;dbl&gt;, LASI &lt;dbl&gt;, NOAT &lt;dbl&gt;, MOBR &lt;dbl&gt;, APGR &lt;dbl&gt;, DOCE &lt;dbl&gt;, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If we now fill in missing values with 0, we can see them in the wide data frame again</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>cts_wide2[<span class="fu">is.na</span>(cts_wide2)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If we now fill in missing values with 0, we can see them in the wide data frame again</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>cts_wide2[<span class="fu">is.na</span>(cts_wide2)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cts_wide2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 100
   EventID  AMRU  CAAN  CACO  ETBL  ETFL  ETNI  ETVA  ICPU  LECY  LEMA  LEME
@@ -439,33 +579,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>We will walk through a couple examples relevant to our datasets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anti_joins are handy to check for inconsistncies between two columns that you plan to use as a join key.</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Most times when I do this I will find more than one misspelling or inconsistency.</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for inconsistencies between species codes/spellings - usually you would do this with the left_hand side of the eventual join listed first.  </span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>nomatch_cnts <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(cts_long2, traits_long, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) </span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, it is ok and expected that the traits have more species than are listed in the counts. </span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>nomatch_spp <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(traits_long, cts_long2,  <span class="at">by=</span><span class="st">"SpeciesCode"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SpeciesCode) <span class="sc">%&gt;%</span> </span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="co"># equivalent to unique() in base R</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we might want to merge the long counts data and the long species trait data</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We will start by subsetting the traits data to only keep a small number of traits # that can be used to calculate fish metrics</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>traits_long_sub <span class="ot">&lt;-</span> <span class="fu">filter</span>(traits_long, trait <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Benthic'</span>, <span class="st">'ModTol'</span>, <span class="st">'Cottid'</span>, <span class="st">'Cyprinid'</span>, <span class="st">'Tol.Benthic'</span>))</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) <span class="co"># Warning because this function is only intended for one-to-one matches between x and y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># anti_joins are handy to check for inconsistncies between two columns that you plan to use as a join key.</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Most times when I do this I will find more than one misspelling or inconsistency.</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for inconsistencies between species codes/spellings - usually you would do this with the left_hand side of the eventual join listed first.  </span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>nomatch_cnts <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(cts_long2, traits_long, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, it is ok and expected that the traits have more species than are listed in the counts. </span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>nomatch_spp <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(traits_long, cts_long2,  <span class="at">by=</span><span class="st">"SpeciesCode"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SpeciesCode) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="co"># equivalent to unique() in base R</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we might want to merge the long counts data and the long species trait data</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We will start by subsetting the traits data to only keep a small number of traits # that can be used to calculate fish metrics</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>traits_long_sub <span class="ot">&lt;-</span> <span class="fu">filter</span>(traits_long, trait <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Benthic'</span>, <span class="st">'ModTol'</span>, <span class="st">'Cottid'</span>, <span class="st">'Cyprinid'</span>, <span class="st">'Tol.Benthic'</span>))</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>) <span class="co"># Warning because this function is only intended for one-to-one matches between x and y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in inner_join(cts_long2, traits_long_sub, by = "SpeciesCode"): Each row in `x` is expected to match at most 1 row in `y`.
 ℹ Row 1 of `x` matches multiple rows.
 ℹ If multiple matches are expected, set `multiple = "all"` to silence this
   warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the multiple argument avoids this warning message if we expect there to be more than one match between x and y</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>, <span class="at">multiple =</span> <span class="st">'all'</span>) </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using merge from base R provides the same result</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>cts_traits_alt <span class="ot">&lt;-</span> <span class="fu">merge</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the multiple argument avoids this warning message if we expect there to be more than one match between x and y</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>cts_traits <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>, <span class="at">multiple =</span> <span class="st">'all'</span>) </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using merge from base R provides the same result</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>cts_traits_alt <span class="ot">&lt;-</span> <span class="fu">merge</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="break---back-in-15-minutes" class="level3">
@@ -482,87 +622,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>There are always many ways to perform the same task. Included below the code for <strong>met_1</strong> is an alternate way to get the same result using functions from the <em>plyr</em> package.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now having fixed that - we can go ahead and run that left_join</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The length of match_1 should equal the length of the cts_long2 file * the number of traits</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">5571</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now having fixed that - we can go ahead and run that left_join</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(cts_long2, traits_long_sub, <span class="at">by =</span> <span class="st">'SpeciesCode'</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The length of match_1 should equal the length of the cts_long2 file * the number of traits</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">5571</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27855</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use mutate() to create Count.trait which is the count times the indicator variable for each trait</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ct_trait =</span> count<span class="sc">*</span>traitvalue)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get rid of those combinations that are 0.  </span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>match_2 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ct_trait<span class="sc">&gt;</span><span class="dv">0</span>)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># We might want to rename the traits to more compact names</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use the revalue function from the plyr package to do this</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>match_3 <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">revalue</span>(trait, <span class="fu">c</span>(<span class="st">'Benthic'</span> <span class="ot">=</span> <span class="st">'BENT'</span>,</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cyprinid'</span> <span class="ot">=</span> <span class="st">'CYPR'</span>,</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Tol.Benthic'</span> <span class="ot">=</span> <span class="st">'TOLBENT'</span>,</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cottid'</span> <span class="ot">=</span> <span class="st">'COTTID'</span>,</span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'ModTol'</span> <span class="ot">=</span> <span class="st">'MODTOL'</span>)))</span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(match_3<span class="sc">$</span>trait_short)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use mutate() to create Count.trait which is the count times the indicator variable for each trait</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>match_1 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ct_trait =</span> count<span class="sc">*</span>traitvalue)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get rid of those combinations that are 0.  </span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>match_2 <span class="ot">&lt;-</span> match_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ct_trait<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="co"># We might want to rename the traits to more compact names</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We can use the revalue function from the plyr package to do this</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>match_3 <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">revalue</span>(trait, <span class="fu">c</span>(<span class="st">'Benthic'</span> <span class="ot">=</span> <span class="st">'BENT'</span>,</span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cyprinid'</span> <span class="ot">=</span> <span class="st">'CYPR'</span>,</span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Tol.Benthic'</span> <span class="ot">=</span> <span class="st">'TOLBENT'</span>,</span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'Cottid'</span> <span class="ot">=</span> <span class="st">'COTTID'</span>,</span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">'ModTol'</span> <span class="ot">=</span> <span class="st">'MODTOL'</span>)))</span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(match_3<span class="sc">$</span>trait_short)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "BENT"    "CYPR"    "TOLBENT" "MODTOL"  "COTTID" </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternate way to do it using ifelse()</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>match_3_alt <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Benthic'</span>, <span class="st">'BENT'</span>, </span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cyprinid'</span>, <span class="st">'CYPR'</span>,</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Tol.Benthic'</span>, <span class="st">'TOLBENT'</span>,</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cottid'</span>, <span class="st">'COTTID'</span>,</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">'MODTOL'</span>)))))</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the use of group_by in this next bit of code.</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of species per trait and the number of individuals by trait</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This results in a table of traits instead of species</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice the ungroup() statement.  This removes the grouping that you applied to the table met_1. This is a good practice, especially if you decide to later do other operations on this table.  </span></span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>met_1 <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID, trait_short) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait), </span>
-<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait), <span class="at">.groups =</span> <span class="st">'keep'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is equivalent to the following:</span></span>
-<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>met_1_alt <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
-<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ddply</span>(<span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'trait_short'</span>), plyr<span class="sc">::</span>summarize, </span>
-<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait),</span>
-<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait))</span>
-<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total number of individuals per sample</span></span>
-<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a>cts_tot <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span></span>
-<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">TOTAL=</span><span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge these totals with met.1 and then calculate proportions by trait </span></span>
-<span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a><span class="co"># and EventID. </span></span>
-<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(met_1, cts_tot, <span class="at">by=</span><span class="st">"EventID"</span>)</span>
-<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span> </span>
-<span id="cb55-40"><a href="#cb55-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PROP =</span> SUM<span class="sc">/</span>TOTAL)</span>
-<span id="cb55-41"><a href="#cb55-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-42"><a href="#cb55-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot longer so that we can rename metrics using traits as prefixes</span></span>
-<span id="cb55-43"><a href="#cb55-43" aria-hidden="true" tabindex="-1"></a>met_2_long <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span></span>
-<span id="cb55-44"><a href="#cb55-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(NTAX<span class="sc">:</span>SUM, PROP)) <span class="sc">%&gt;%</span></span>
-<span id="cb55-45"><a href="#cb55-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metric =</span> <span class="fu">paste</span>(trait_short, name, <span class="at">sep =</span> <span class="st">'_'</span>)) </span>
-<span id="cb55-46"><a href="#cb55-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-47"><a href="#cb55-47" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternate way to do it using ifelse()</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>match_3_alt <span class="ot">&lt;-</span> match_2 <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trait_short =</span> <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Benthic'</span>, <span class="st">'BENT'</span>, </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cyprinid'</span>, <span class="st">'CYPR'</span>,</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Tol.Benthic'</span>, <span class="st">'TOLBENT'</span>,</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="fu">ifelse</span>(trait<span class="sc">==</span><span class="st">'Cottid'</span>, <span class="st">'COTTID'</span>,</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">'MODTOL'</span>)))))</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the use of group_by in this next bit of code.</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of species per trait and the number of individuals by trait</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This results in a table of traits instead of species</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice the ungroup() statement.  This removes the grouping that you applied to the table met_1. This is a good practice, especially if you decide to later do other operations on this table.  </span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>met_1 <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID, trait_short) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait), </span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait), <span class="at">.groups =</span> <span class="st">'keep'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is equivalent to the following:</span></span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>met_1_alt <span class="ot">&lt;-</span> match_3 <span class="sc">%&gt;%</span></span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ddply</span>(<span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'trait_short'</span>), plyr<span class="sc">::</span>summarize, </span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">NTAX =</span> <span class="fu">length</span>(ct_trait),</span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">SUM =</span> <span class="fu">sum</span>(ct_trait))</span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total number of individuals per sample</span></span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>cts_tot <span class="ot">&lt;-</span> cts_long <span class="sc">%&gt;%</span></span>
+<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(EventID) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">TOTAL=</span><span class="fu">sum</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-35"><a href="#cb63-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge these totals with met.1 and then calculate proportions by trait </span></span>
+<span id="cb63-36"><a href="#cb63-36" aria-hidden="true" tabindex="-1"></a><span class="co"># and EventID. </span></span>
+<span id="cb63-37"><a href="#cb63-37" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(met_1, cts_tot, <span class="at">by=</span><span class="st">"EventID"</span>)</span>
+<span id="cb63-38"><a href="#cb63-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-39"><a href="#cb63-39" aria-hidden="true" tabindex="-1"></a>met_2 <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb63-40"><a href="#cb63-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PROP =</span> SUM<span class="sc">/</span>TOTAL)</span>
+<span id="cb63-41"><a href="#cb63-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-42"><a href="#cb63-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot longer so that we can rename metrics using traits as prefixes</span></span>
+<span id="cb63-43"><a href="#cb63-43" aria-hidden="true" tabindex="-1"></a>met_2_long <span class="ot">&lt;-</span> met_2 <span class="sc">%&gt;%</span></span>
+<span id="cb63-44"><a href="#cb63-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(NTAX<span class="sc">:</span>SUM, PROP)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-45"><a href="#cb63-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metric =</span> <span class="fu">paste</span>(trait_short, name, <span class="at">sep =</span> <span class="st">'_'</span>)) </span>
+<span id="cb63-46"><a href="#cb63-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-47"><a href="#cb63-47" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "EventID"     "trait_short" "TOTAL"       "name"        "value"      
 [6] "metric"     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(met_2_long<span class="sc">$</span>metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(met_2_long<span class="sc">$</span>metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"    "CYPR_NTAX"    "CYPR_SUM"    
  [6] "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"   "MODTOL_PROP"  "TOLBENT_NTAX"
@@ -581,20 +721,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>We show this in two separate steps but can perform all at once using pipelining (<strong>%&gt;%)</strong></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot wider so that metrics are in columns - this produces NAs because </span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># some metrics have no individuals, so they were not in the long data</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># frame for some EventIDs. </span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(met_2_long, <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'TOTAL'</span>),</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">names_from=</span><span class="st">'metric'</span>, <span class="at">values_from=</span><span class="st">'value'</span>) </span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in NAs with 0</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we could have done this all at once using the pipeline above</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co"># It is just shown separately here to show the missing values before filling </span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="co"># them in.</span></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> met_2_wide <span class="sc">%&gt;%</span></span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot wider so that metrics are in columns - this produces NAs because </span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># some metrics have no individuals, so they were not in the long data</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># frame for some EventIDs. </span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(met_2_long, <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">'EventID'</span>, <span class="st">'TOTAL'</span>),</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">names_from=</span><span class="st">'metric'</span>, <span class="at">values_from=</span><span class="st">'value'</span>) </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in NAs with 0</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we could have done this all at once using the pipeline above</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="co"># It is just shown separately here to show the missing values before filling </span></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="co"># them in.</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>met_2_wide <span class="ot">&lt;-</span> met_2_wide <span class="sc">%&gt;%</span></span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>)</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "EventID"      "TOTAL"        "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"   
  [6] "CYPR_NTAX"    "CYPR_SUM"     "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"  
@@ -611,29 +751,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A longer format is tidier to work with, so we will first pivot the dataset longer</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(met_2_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "EventID"      "TOTAL"        "BENT_NTAX"    "BENT_SUM"     "BENT_PROP"   
  [6] "CYPR_NTAX"    "CYPR_SUM"     "CYPR_PROP"    "MODTOL_NTAX"  "MODTOL_SUM"  
 [11] "MODTOL_PROP"  "TOLBENT_NTAX" "TOLBENT_SUM"  "TOLBENT_PROP" "COTTID_NTAX" 
 [16] "COTTID_SUM"   "COTTID_PROP" </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>met_out <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(met_2_wide, <span class="at">cols =</span> TOTAL<span class="sc">:</span>COTTID_PROP, </span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">'Metric'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, Metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>met_out <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(met_2_wide, <span class="at">cols =</span> TOTAL<span class="sc">:</span>COTTID_PROP, </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">names_to =</span> <span class="st">'Metric'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(EventID, Metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save." class="level4">
 <h4 class="anchored" data-anchor-id="now-we-can-save-that-data-frame-to-a-.csv---this-is-the-simplest-way-to-save.">Now we can save that data frame to a .csv - this is the simplest way to save.</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics.csv"</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If we look at this file, we see an extra column with no heading. That column </span></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># represents the row names and can create some issues, so we want to exclude </span></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># those. </span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If we read that file back in, R names that column X</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>fish_mets <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics.csv"</span>)</span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics.csv"</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If we look at this file, we see an extra column with no heading. That column </span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co"># represents the row names and can create some issues, so we want to exclude </span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="co"># those. </span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="co"># If we read that file back in, R names that column X</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>fish_mets <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics.csv"</span>)</span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X EventID      Metric Value
 1 1    5618   BENT_NTAX  12.0
@@ -643,11 +783,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5 5    5618 COTTID_PROP   0.0
 6 6    5618  COTTID_SUM   0.0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics_noRowNames.csv"</span>, <span class="at">row.names=</span>F)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we read this file back in and note that it is a bit cleaner without that </span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># X column</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>fish_mets_noRowNames <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics_noRowNames.csv"</span>)</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets_noRowNames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(met_out, <span class="st">"Fish_Metrics_noRowNames.csv"</span>, <span class="at">row.names=</span>F)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we read this file back in and note that it is a bit cleaner without that </span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># X column</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>fish_mets_noRowNames <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Fish_Metrics_noRowNames.csv"</span>)</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fish_mets_noRowNames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  EventID      Metric Value
 1    5618   BENT_NTAX  12.0
@@ -667,11 +807,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Look at both files to see the differences between the two.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">Metrics =</span> met_out, <span class="at">Metrics_wide =</span> met_2_wide), </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Fish_Metrics.xlsx"</span>)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># To save just one data frame into an Excel file with the worksheet named Sheet1</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(met_out, <span class="st">"Fish_Metrics_OneWorksheet.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(<span class="fu">list</span>(<span class="at">Metrics =</span> met_out, <span class="at">Metrics_wide =</span> met_2_wide), </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Fish_Metrics.xlsx"</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># To save just one data frame into an Excel file with the worksheet named Sheet1</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(met_out, <span class="st">"Fish_Metrics_OneWorksheet.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
